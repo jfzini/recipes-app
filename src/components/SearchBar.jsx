@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 export default function SearchBar() {
   return (
-    <div>SearchBar</div>
-  )
+    <div>
+      <input
+        data-testid="search-input"
+        type="text"
+        name="searchInput"
+      />
+    </div>
+  );
 }
