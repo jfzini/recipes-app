@@ -47,7 +47,12 @@ export default function Header() {
       {headerData.renderSearchIcon
         && (
           <button
-            onClick={ () => setHeaderData({ ...headerData, showSearchBar: !headerData.showSearchBar }) }
+            onClick={ () => setHeaderData(
+              {
+                ...headerData,
+                showSearchBar: !headerData.showSearchBar,
+              },
+            ) }
           >
             <img
               src="src/images/searchIcon.svg"
