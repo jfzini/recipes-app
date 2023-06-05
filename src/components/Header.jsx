@@ -19,9 +19,6 @@ export default function Header() {
 
   useEffect(() => {
     switch (pathname) {
-    case '/meals':
-      setHeaderData({ ...headerData, title: 'Meals' });
-      break;
     case '/drinks':
       setHeaderData({ ...headerData, title: 'Drinks' });
       break;
@@ -39,6 +36,8 @@ export default function Header() {
       });
       break;
     default:
+      setHeaderData({ ...headerData, title: 'Meals' });
+      break;
     }
   }, [pathname]);
 
