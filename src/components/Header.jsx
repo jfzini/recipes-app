@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../images/profileIcon.svg';
 
 export default function Header() {
   const history = useHistory();
@@ -55,7 +57,7 @@ export default function Header() {
             ) }
           >
             <img
-              src="src/images/searchIcon.svg"
+              src={ searchIcon }
               alt="search-icon"
               data-testid="search-top-btn"
             />
@@ -65,7 +67,7 @@ export default function Header() {
         onClick={ () => history.push('/profile') }
       >
         <img
-          src="src/images/profileIcon.svg"
+          src={ profileIcon }
           alt="profile-icon"
           data-testid="profile-top-btn"
         />
