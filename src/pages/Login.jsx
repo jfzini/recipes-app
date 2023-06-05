@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { saveToLocalStorage } from '../services/storage';
 
-export default function Login(props) {
+export default function Login() {
+  const history = useHistory();
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -14,9 +16,8 @@ export default function Login(props) {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (key, value) => {
-    const { history } = props;
-    saveToLocalStorage(key, value);
+  const handleSubmit = () => {
+    saveToLocalStorage('user', { email: user.email });
     history.push('/meals');
   };
 
@@ -50,7 +51,7 @@ export default function Login(props) {
         type="button"
         data-testid="login-submit-btn"
         disabled={ !isValid }
-        onClick={ () => handleSubmit('user', { email: user.email }) }
+        onClick={ handleSubmit }
       >
         Enter
       </button>
