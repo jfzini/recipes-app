@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import RecipesContext from '../context/Context';
 
 export default function SearchBar() {
@@ -7,7 +8,23 @@ export default function SearchBar() {
     setSearchMethod,
     setSearchQuery,
     handleSearch,
+    recipes,
   } = useContext(RecipesContext);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (recipes) {
+      if (recipes.length === 1 && history.location.pathname === '/meals') {
+        const id = recipes[0].idMeal;
+        history.push(`/meals/${id}`);
+      }
+      if (recipes.length === 1 && history.location.pathname === '/drinks') {
+        const id = recipes[0].idDrink;
+        history.push(`/drinks/${id}`);
+      }
+    }
+  }, [recipes]);
 
   return (
     <div>
@@ -45,7 +62,7 @@ export default function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleSearch }
+        onClick={ () => handleSearch(history.location.pathname) }
       >
         Search
       </button>

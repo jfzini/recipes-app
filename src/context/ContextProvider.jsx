@@ -6,25 +6,59 @@ import {
   fetchMealByFirstLetter,
   fetchMealByName,
 } from '../services/theMealApi';
+import {
+  fetchDrinkByFirstLetter,
+  fetchDrinkByIngredient,
+  fetchDrinkByName,
+} from '../services/theCocktailApi';
 
 function ContextProvider({ children }) {
   const [searchMethod, setSearchMethod] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [recipes, setRecipes] = useState([]);
 
-  const handleSearch = async () => {
+  const searchMeals = async () => {
     if (searchMethod === 'ingredient') {
       const ingredientResults = await fetchMealByIngredient(searchQuery);
-      console.log(ingredientResults);
       setRecipes(ingredientResults);
     } else if (searchMethod === 'name') {
       const nameResults = await fetchMealByName(searchQuery);
-      console.log(nameResults);
       setRecipes(nameResults);
-    } else if (searchMethod === 'firstLetter') {
+    } else if (searchMethod === 'firstLetter' && searchQuery.length === 1) {
       const letterResults = await fetchMealByFirstLetter(searchQuery);
-      console.log(letterResults);
       setRecipes(letterResults);
+    } else {
+      global.alert('Your search must have only 1 (one) character');
+    }
+    if (recipes.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
+  const searchDrinks = async () => {
+    if (searchMethod === 'ingredient') {
+      const ingredientResults = await fetchDrinkByIngredient(searchQuery);
+      setRecipes(ingredientResults);
+    } else if (searchMethod === 'name') {
+      const nameResults = await fetchDrinkByName(searchQuery);
+      setRecipes(nameResults);
+    } else if (searchMethod === 'firstLetter' && searchQuery.length === 1) {
+      const letterResults = await fetchDrinkByFirstLetter(searchQuery);
+      setRecipes(letterResults);
+    } else {
+      global.alert('Your search must have only 1 (one) character');
+    }
+    if (recipes.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
+  const handleSearch = async (pathname) => {
+    if (pathname === '/meals') {
+      await searchMeals();
+    }
+    if (pathname === '/drinks') {
+      await searchDrinks();
     }
   };
 
