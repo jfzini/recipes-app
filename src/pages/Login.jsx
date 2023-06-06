@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { saveToLocalStorage } from '../services/storage';
-import { fetchMealByName } from '../services/theMealApi';
 
 export default function Login() {
   const history = useHistory();
@@ -15,7 +14,6 @@ export default function Login() {
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUser({ ...user, [name]: value });
-    console.log(fetchMealByName('pizza'));
   };
 
   const handleSubmit = () => {
