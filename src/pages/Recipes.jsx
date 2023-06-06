@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import RecipesContext from '../context/Context';
+import Footer from '../components/Footer';
 
 export default function Recipes() {
   const { recipes } = useContext(RecipesContext);
@@ -35,6 +36,7 @@ export default function Recipes() {
           }))
           : ''}
       </div>
+      <Footer />
     </div>
   );
 }
