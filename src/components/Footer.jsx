@@ -8,7 +8,7 @@ export default function Footer() {
   const history = useHistory();
 
   return (
-    <div data-testid="footer" className='footer-menu'>
+    <div data-testid="footer" className="footer-menu">
       <button
         type="button"
         onClick={ () => history.push('/drinks') }
