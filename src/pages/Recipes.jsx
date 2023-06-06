@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import RecipesContext from '../context/Context';
@@ -12,6 +12,7 @@ export default function Recipes() {
     renderFilters,
     renderFilteredRecipes,
   } = useContext(RecipesContext);
+  const [activeFilter, setActiveFilter] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
   const RECIPES_LIMIT = 11;
@@ -29,6 +30,10 @@ export default function Recipes() {
     renderInitialRecipes(pathname);
     renderFilters(pathname);
   }, []);
+
+  const handleDetail = (id) => {
+    history.push(`${pathname}/${id}`);
+  };
 
   return (
     <div>
@@ -49,7 +54,14 @@ export default function Recipes() {
                   type="button"
                   key={ index }
                   data-testid={ `${filter.strCategory}-category-filter` }
-                  onClick={ () => renderFilteredRecipes(pathname, filter.strCategory) }
+                  onClick={ () => {
+                    if (activeFilter) {
+                      renderInitialRecipes(pathname);
+                    } else {
+                      renderFilteredRecipes(pathname, filter.strCategory);
+                    }
+                    setActiveFilter(!activeFilter);
+                  } }
                 >
                   {filter.strCategory}
                 </button>
@@ -68,11 +80,23 @@ export default function Recipes() {
                   data-testid={ `${index}-recipe-card` }
                   key={ recipe.idDrink || recipe.idMeal }
                 >
-                  <img
-                    src={ recipe.strDrinkThumb || recipe.strMealThumb }
-                    alt=""
-                    data-testid={ `${index}-card-img` }
-                  />
+                  <button
+                    type="button"
+                    onClick={ () => {
+                      if (recipe.idDrink) {
+                        handleDetail(recipe.idDrink);
+                      }
+                      if (recipe.idMeal) {
+                        handleDetail(recipe.idMeal);
+                      }
+                    } }
+                  >
+                    <img
+                      src={ recipe.strDrinkThumb || recipe.strMealThumb }
+                      alt=""
+                      data-testid={ `${index}-card-img` }
+                    />
+                  </button>
                   <p
                     data-testid={ `${index}-card-name` }
                   >
