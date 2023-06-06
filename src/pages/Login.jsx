@@ -5,10 +5,7 @@ import { saveToLocalStorage } from '../services/storage';
 
 export default function Login() {
   const history = useHistory();
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
+  const [user, setUser] = useState({ email: '', password: '' });
   const [isValid, setIsValid] = useState(false);
 
   const handleChange = ({ target }) => {
