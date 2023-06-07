@@ -79,6 +79,11 @@ export default function RecipeDetails() {
             )}
           </div>
         ))}
+      {suggestions
+        && suggestions.map((suggestion, index) => (
+          <div key={ index }>
+            {suggestion.idDrink || suggestion.idMeal}
+          </div>))}
     </div>
   );
 }
