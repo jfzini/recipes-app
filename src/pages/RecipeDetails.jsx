@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import copy from 'clipboard-copy';
 import { fetchMealByID, fetchMealByName } from '../services/theMealApi';
 import { fetchDrinkByID, fetchDrinkByName } from '../services/theCocktailApi';
+import shareIcon from '../images/shareIcon.svg';
+import favoriteIcon from '../images/blackHeartIcon.svg';
+// import Slider  from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+import './RecipeDetails.css';
 
 export default function RecipeDetails() {
   const history = useHistory();
@@ -9,6 +16,16 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [suggestions, setSuggestions] = useState(null);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const CAROUSEL_LIMIT = 5;
+
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 2,
+  //   slidesToScroll: 1,
+  // };
 
   const fetchRecipe = async () => {
     if (pathname.includes('meals')) {
@@ -32,6 +49,60 @@ export default function RecipeDetails() {
     }
   };
 
+  const handleCopy = () => {
+    copy(`http://localhost:3000${pathname}`);
+    setLinkCopied(true);
+  };
+
+  const handleFavorites = () => {
+    if (pathname.includes('meals')) {
+      console.log(recipe);
+      const { idMeal, strMeal, strCategory, strArea, strMealThumb } = recipe[0];
+      const favoriteRecipe = {
+        id: idMeal,
+        type: 'meal',
+        nationality: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...favoriteRecipes, favoriteRecipe]),
+        );
+      } else {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([favoriteRecipe]),
+        );
+      }
+    }
+    if (pathname.includes('drinks')) {
+      const { idDrink, strDrink, strAlcoholic, strCategory, strDrinkThumb } = recipe[0];
+      const favoriteRecipe = {
+        id: idDrink,
+        type: 'drink',
+        nationality: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+      };
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...favoriteRecipes, favoriteRecipe]),
+        );
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRecipe]));
+      }
+    }
+  };
+
   useEffect(() => {
     fetchRecipe();
     fetchSuggestions();
@@ -48,6 +119,13 @@ export default function RecipeDetails() {
               alt={ receipt.strMeal || receipt.strDrink }
               data-testid="recipe-photo"
             />
+            <button data-testid="share-btn" onClick={ handleCopy }>
+              <img src={ shareIcon } alt="share icon" />
+            </button>
+            <button data-testid="favorite-btn" onClick={ handleFavorites }>
+              <img src={ favoriteIcon } alt="favorite icon" />
+            </button>
+            {linkCopied && <span>Link copied!</span>}
             <p data-testid="recipe-category">
               { pathname.includes('/meals')
                 ? receipt.strCategory
@@ -79,11 +157,37 @@ export default function RecipeDetails() {
             )}
           </div>
         ))}
-      {suggestions
-        && suggestions.map((suggestion, index) => (
-          <div key={ index }>
-            {suggestion.idDrink || suggestion.idMeal}
-          </div>))}
+      <div className="carousel-container">
+        {suggestions
+            && suggestions.map((suggestion, index) => {
+              if (index <= CAROUSEL_LIMIT) {
+                return (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-recommendation-card` }
+                  >
+                    <img
+                      src={ suggestion.strMealThumb || suggestion.strDrinkThumb }
+                      alt={ suggestion.strMeal || suggestion.strDrink }
+                      className="carousel-img"
+                    />
+                    <p data-testid={ `${index}-recommendation-title` }>
+                      { suggestion.strMeal || suggestion.strDrink }
+                    </p>
+                  </div>
+                );
+              }
+              return null;
+            })}
+      </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe-btn"
+        onClick={ () => history.push(`${pathname}/in-progress`) }
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
