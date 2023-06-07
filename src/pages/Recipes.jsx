@@ -82,6 +82,7 @@ export default function Recipes() {
                 >
                   <button
                     type="button"
+                    data-testid={ `${index}-recipe-button` }
                     onClick={ () => {
                       if (recipe.idDrink) {
                         handleDetail(recipe.idDrink);
