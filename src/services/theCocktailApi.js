@@ -3,6 +3,7 @@ const ingredientURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=
 const firstLetterURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const drinksListURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const filteredDrinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const drinkDetailsURL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 export async function fetchDrinkByName(name = '') {
   try {
@@ -47,6 +48,16 @@ export async function fetchDrinksList() {
 export async function fetchFilteredDrinks(category) {
   try {
     const response = await fetch(`${filteredDrinksURL}${category}`);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export async function fetchDrinkByID(ID) {
+  try {
+    const response = await fetch(`${drinkDetailsURL}${ID}`);
     const data = await response.json();
     return data.drinks;
   } catch (error) {
