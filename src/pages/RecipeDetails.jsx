@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { fetchMealByID } from '../services/theMealApi';
-import { fetchDrinkByID } from '../services/theCocktailApi';
+import { fetchMealByID, fetchMealByName } from '../services/theMealApi';
+import { fetchDrinkByID, fetchDrinkByName } from '../services/theCocktailApi';
 
 export default function RecipeDetails() {
   const history = useHistory();
   const { pathname } = history.location;
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [suggestions, setSuggestions] = useState(null);
 
   const fetchRecipe = async () => {
     if (pathname.includes('meals')) {
@@ -20,9 +21,20 @@ export default function RecipeDetails() {
     }
   };
 
+  const fetchSuggestions = async () => {
+    if (pathname.includes('meals')) {
+      const fetchedDrinks = await fetchDrinkByName();
+      setSuggestions(fetchedDrinks);
+    }
+    if (pathname.includes('drinks')) {
+      const fetchedMeals = await fetchMealByName();
+      setSuggestions(fetchedMeals);
+    }
+  };
+
   useEffect(() => {
-    console.log('entrou');
     fetchRecipe();
+    fetchSuggestions();
   }, []);
 
   return (
