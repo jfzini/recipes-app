@@ -2,11 +2,11 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouterAndContext from './helpers/renderWithRouter';
 
 describe('Test if Login page if working correctly', () => {
   it('should render all the elements', async () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
 
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
