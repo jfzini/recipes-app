@@ -6,7 +6,7 @@ import renderWithRouterAndContext from './helpers/renderWithRouter';
 import { mockMealIngredientFilter, mockMealSingleRecipe } from './mocks/mockMeals';
 import { mockDrinkSingleRecipe } from './mocks/mockDrinks';
 
-describe('Test if Login page if working correctly', () => {
+describe('Test if SearchBar component is working correctly', () => {
   const searchIconID = 'search-top-btn';
   const profileBtnID = 'profile-top-btn';
   const searchInputID = 'search-input';

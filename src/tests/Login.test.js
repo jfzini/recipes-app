@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './helpers/renderWithRouter';
 
-describe('Test if Login page if working correctly', () => {
+describe('Test if Login page is working correctly', () => {
   it('should render all the elements', async () => {
     const { history } = renderWithRouterAndContext(<App />);
 
