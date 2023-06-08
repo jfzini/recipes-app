@@ -3,12 +3,10 @@ import { useParams, useHistory } from 'react-router-dom/cjs/react-router-dom.min
 import copy from 'clipboard-copy';
 import { fetchMealByID, fetchMealByName } from '../services/theMealApi';
 import { fetchDrinkByID, fetchDrinkByName } from '../services/theCocktailApi';
+import { saveFavoriteRecipe } from '../services/storage';
 import shareIcon from '../images/shareIcon.svg';
 import blackFavoriteIcon from '../images/blackHeartIcon.svg';
 import whiteFavoriteIcon from '../images/whiteHeartIcon.svg';
-// import Slider  from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import './RecipeDetails.css';
 
 export default function RecipeDetails() {
@@ -19,15 +17,8 @@ export default function RecipeDetails() {
   const [suggestions, setSuggestions] = useState(null);
   const [linkCopied, setLinkCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const CAROUSEL_LIMIT = 5;
-
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 2,
-  //   slidesToScroll: 1,
-  // };
 
   const fetchRecipe = async () => {
     if (pathname.includes('meals')) {
@@ -67,18 +58,7 @@ export default function RecipeDetails() {
       name: strMeal,
       image: strMealThumb,
     };
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteRecipes) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([...favoriteRecipes, favoriteRecipe]),
-      );
-    } else {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([favoriteRecipe]),
-      );
-    }
+    saveFavoriteRecipe(favoriteRecipe);
     setFavorite(true);
   };
 
@@ -93,15 +73,7 @@ export default function RecipeDetails() {
       name: strDrink,
       image: strDrinkThumb,
     };
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteRecipes) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([...favoriteRecipes, favoriteRecipe]),
-      );
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteRecipe]));
-    }
+    saveFavoriteRecipe(favoriteRecipe);
     setFavorite(true);
   };
 
@@ -120,12 +92,8 @@ export default function RecipeDetails() {
           });
       }
     } else {
-      if (pathname.includes('meals')) {
-        addFavoriteMeal();
-      }
-      if (pathname.includes('drinks')) {
-        addFavoriteDrink();
-      }
+      if (pathname.includes('meals')) { addFavoriteMeal(); }
+      if (pathname.includes('drinks')) { addFavoriteDrink(); }
     }
   };
 
@@ -138,10 +106,32 @@ export default function RecipeDetails() {
     }
   };
 
+  const checkInProgress = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes) {
+      const { meals, drinks } = inProgressRecipes;
+      if (pathname.includes('meals') && meals[id]) { setInProgress(true); }
+      if (pathname.includes('drinks') && drinks[id]) { setInProgress(true); }
+    }
+  };
+
+  const startRecipe = () => {
+    const pattern = { drinks: {}, meals: {} };
+    if (pathname.includes('meals')) {
+      const recipeInProgress = { ...pattern, meals: { [id]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
+    }
+    if (pathname.includes('drinks')) {
+      const recipeInProgress = { ...pattern, drinks: { [id]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
+    }
+  };
+
   useEffect(() => {
     fetchRecipe();
     fetchSuggestions();
     checkFavorite();
+    checkInProgress();
   }, []);
 
   return (
@@ -233,9 +223,12 @@ export default function RecipeDetails() {
         type="button"
         data-testid="start-recipe-btn"
         className="start-recipe-btn"
-        onClick={ () => history.push(`${pathname}/in-progress`) }
+        onClick={ () => {
+          startRecipe();
+          history.push(`${pathname}/in-progress`);
+        } }
       >
-        Start Recipe
+        { inProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>
     </div>
   );
