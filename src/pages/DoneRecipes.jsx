@@ -58,7 +58,6 @@ export default function DoneRecipes() {
         >
           Drinks
         </button>
-
         {doneRecipes && doneRecipes.map((recipe, index) => (
           <div key={ index }>
             <button onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }>
