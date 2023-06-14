@@ -187,7 +187,7 @@ export default function RecipeDetails() {
             <p data-testid="instructions">{receipt.strInstructions}</p>
             {pathname.includes('meals') && (
               <iframe
-                title={ receipt.strMeal || receipt.strDrink }
+                title={ receipt.strMeal }
                 width="420"
                 height="315"
                 src={ receipt.strYoutube.replace('watch?v=', 'embed/') }
