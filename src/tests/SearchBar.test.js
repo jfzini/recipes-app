@@ -3,8 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './helpers/renderWithRouter';
-import { mockMealIngredientFilter, mockMealSingleRecipe } from './mocks/mockMeals';
-import { mockDrinkCategory, mockDrinkIngredientFilter, mockDrinkSingleRecipe } from './mocks/mockDrinks';
+import { fetch } from './mocks/mockImplementation';
 
 describe('Test if SearchBar component is working correctly', () => {
   const searchIconID = 'search-top-btn';
@@ -14,12 +13,15 @@ describe('Test if SearchBar component is working correctly', () => {
   const searchBtnID = 'exec-search-btn';
   const firstRecipeID = '0-recipe-button';
 
-  it('should work correctly on meals page', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockMealIngredientFilter),
-    });
+  beforeEach(() => {
+    jest.spyOn(global, 'fetch').mockImplementation(fetch);
+  });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it('should work correctly on meals page', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
@@ -51,11 +53,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should work correctly on drinks page', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockDrinkIngredientFilter),
-    });
-
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
@@ -88,11 +85,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should go to the details page if only 1 recipe is found in meals page', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockMealSingleRecipe),
-    });
-
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
     userEvent.click(screen.getByTestId(searchIconID));
@@ -101,21 +93,16 @@ describe('Test if SearchBar component is working correctly', () => {
     const nameSearchRadio = screen.getByTestId(nameRadioID);
     const execSearchBtn = screen.getByTestId(searchBtnID);
 
-    userEvent.type(searchInput, 'lemon');
+    userEvent.type(searchInput, 'beef asado');
     userEvent.click(nameSearchRadio);
     userEvent.click(execSearchBtn);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/52959');
+      expect(history.location.pathname).toBe('/meals/53071');
     });
   });
 
   it('should go to the details page if only 1 recipe is found in drinks page', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockDrinkSingleRecipe),
-    });
-
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
     userEvent.click(screen.getByTestId(searchIconID));
@@ -124,33 +111,25 @@ describe('Test if SearchBar component is working correctly', () => {
     const nameSearchRadio = screen.getByTestId(nameRadioID);
     const execSearchBtn = screen.getByTestId(searchBtnID);
 
-    userEvent.type(searchInput, 'lemon');
+    userEvent.type(searchInput, '155');
     userEvent.click(nameSearchRadio);
     userEvent.click(execSearchBtn);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/drinks/17005');
+      expect(history.location.pathname).toBe('/drinks/15346');
     });
   });
 
   it('should render filtered results when a category is selected', async () => {
-    jest.restoreAllMocks();
-
-    const { history } = renderWithRouterAndContext(<App />, '/drinks');
+    renderWithRouterAndContext(<App />, '/drinks');
 
     await waitFor(() => {
-      userEvent.click(screen.queryByRole('button', { name: /shake/i }));
-    });
-
-    jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockDrinkCategory),
+      userEvent.click(screen.queryByRole('button', { name: /cocktail/i }));
     });
 
     await waitFor(() => {
-      const firstDrinkCard = screen.getByTestId(firstRecipeID);
-      userEvent.click(firstDrinkCard);
-      expect(history.location.pathname).toBe('/drinks/14588');
+      const firstDrinkCard = screen.getByTestId('0-card-name');
+      expect(firstDrinkCard).toHaveTextContent('155 Belmont');
     });
   });
 });
