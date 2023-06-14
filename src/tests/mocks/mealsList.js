@@ -1,46 +1,46 @@
 export const mealsListMock = {
-  "meals": [
+  meals: [
     {
-      "strCategory": "Beef"
+      strCategory: 'Beef',
     },
     {
-      "strCategory": "Breakfast"
+      strCategory: 'Breakfast',
     },
     {
-      "strCategory": "Chicken"
+      strCategory: 'Chicken',
     },
     {
-      "strCategory": "Dessert"
+      strCategory: 'Dessert',
     },
     {
-      "strCategory": "Goat"
+      strCategory: 'Goat',
     },
     {
-      "strCategory": "Lamb"
+      strCategory: 'Lamb',
     },
     {
-      "strCategory": "Miscellaneous"
+      strCategory: 'Miscellaneous',
     },
     {
-      "strCategory": "Pasta"
+      strCategory: 'Pasta',
     },
     {
-      "strCategory": "Pork"
+      strCategory: 'Pork',
     },
     {
-      "strCategory": "Seafood"
+      strCategory: 'Seafood',
     },
     {
-      "strCategory": "Side"
+      strCategory: 'Side',
     },
     {
-      "strCategory": "Starter"
+      strCategory: 'Starter',
     },
     {
-      "strCategory": "Vegan"
+      strCategory: 'Vegan',
     },
     {
-      "strCategory": "Vegetarian"
-    }
-  ]
+      strCategory: 'Vegetarian',
+    },
+  ],
 };

@@ -3,8 +3,6 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './helpers/renderWithRouter';
-import { mockMealIngredientFilter, mockMealSingleRecipe } from './mocks/mockMeals';
-import { mockDrinkCategory, mockDrinkIngredientFilter, mockDrinkSingleRecipe } from './mocks/mockDrinks';
 import { fetch } from './mocks/mockImplementation';
 
 describe('Test if SearchBar component is working correctly', () => {
@@ -24,7 +22,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should work correctly on meals page', async () => {
-
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
@@ -56,7 +53,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should work correctly on drinks page', async () => {
-
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
@@ -89,7 +85,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should go to the details page if only 1 recipe is found in meals page', async () => {
-
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
     userEvent.click(screen.getByTestId(searchIconID));
@@ -108,7 +103,6 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should go to the details page if only 1 recipe is found in drinks page', async () => {
-
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
     userEvent.click(screen.getByTestId(searchIconID));
@@ -127,8 +121,7 @@ describe('Test if SearchBar component is working correctly', () => {
   });
 
   it('should render filtered results when a category is selected', async () => {
-
-    const { history } = renderWithRouterAndContext(<App />, '/drinks');
+    renderWithRouterAndContext(<App />, '/drinks');
 
     await waitFor(() => {
       userEvent.click(screen.queryByRole('button', { name: /cocktail/i }));
@@ -136,7 +129,7 @@ describe('Test if SearchBar component is working correctly', () => {
 
     await waitFor(() => {
       const firstDrinkCard = screen.getByTestId('0-card-name');
-      expect(firstDrinkCard).toHaveTextContent('155 Belmont')
+      expect(firstDrinkCard).toHaveTextContent('155 Belmont');
     });
   });
 });
