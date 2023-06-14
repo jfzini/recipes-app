@@ -14,15 +14,13 @@ export default function SearchBar() {
   const history = useHistory();
 
   useEffect(() => {
-    if (recipes) {
-      if (recipes.length === 1 && history.location.pathname === '/meals') {
-        const id = recipes[0].idMeal;
-        history.push(`/meals/${id}`);
-      }
-      if (recipes.length === 1 && history.location.pathname === '/drinks') {
-        const id = recipes[0].idDrink;
-        history.push(`/drinks/${id}`);
-      }
+    if (recipes && recipes.length === 1 && history.location.pathname === '/meals') {
+      const id = recipes[0].idMeal;
+      history.push(`/meals/${id}`);
+    }
+    if (recipes && recipes.length === 1 && history.location.pathname === '/drinks') {
+      const id = recipes[0].idDrink;
+      history.push(`/drinks/${id}`);
     }
   }, [recipes]);
 

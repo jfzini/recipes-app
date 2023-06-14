@@ -1,48 +1,66 @@
-// const drinkNameURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-// const drinkIngredientURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
-// const drinkFirstLetterURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
-// const drinksListURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-// const drinkCategoryURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-// const drinkDetailsURL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-// const mealNameURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-// const mealIngredientURL = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-// const mealFirstLetterURL = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
-// const mealsListURL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-// const mealCategoryURL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
-// const mealDetailsURL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+import { allDrinksMock } from './allDrinks';
+import { allMealsMock } from './allMeals';
+import { drinkByIngredientMock } from './drinkByIngredient'; //filters by lemon
+import { drinkDetailsMock } from './drinkDetails'; // mocks 155 Belmont
+import { drinksByCategoryMock } from './drinksByCategory';
+import { drinksListMock } from './drinksList';
+import { firstLetterJDrinks } from './firstLetterDrinks'; // filters letter J
+import { firstLetterMealMock } from './firstLetterMeal';
+import { mealByIngredientMock } from './mealByIngredient';
+import { mealDetailsMock } from './mealDetails';
+import { mealsByCategoryMock } from './mealsByCategory';
+import { mealsListMock } from './mealsList';
+import { nameFilterDrinksMock } from './nameFilterDrinks'; //filters 'GG'
+import { nameFilterMealsMock } from './nameFilterMeals';
 
-// const mockFetch = (url) => {
-//   if (url === 'https://api.mercadolibre.com/sites/MLB/categories') {
-//     return Promise.resolve({
-//       json: () => Promise.resolve(categories),
-//     });
-//   }
+export const fetch = (url) => Promise.resolve({
+  status: 200,
+  ok: true,
+  json: () => {
+    if (url ==='https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      return Promise.resolve(allDrinksMock);
 
-//   if (url.includes('https://api.mercadolibre.com/sites/MLB/search?category=') && url.includes('&q=')) {
-//     return Promise.resolve({
-//       json: () => Promise.resolve(query),
-//     });
-//   }
+    if (url.includes('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=') ||
+        url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=155')
+      return Promise.resolve(drinkDetailsMock);
 
-//   if (url.includes('https://api.mercadolibre.com/sites/MLB/search?q=')) {
-//     return Promise.resolve({
-//       json: () => Promise.resolve(searchQuery),
-//     });
-//   }
+    if ((/https:\/\/www\.thecocktaildb\.com\/api\/json\/v1\/1\/search\.php\?s=\w+/).test(url))
+      return Promise.resolve(nameFilterDrinksMock);
 
-//   if (url.includes('https://api.mercadolibre.com/sites/MLB/search?category=')) {
-//     return Promise.resolve({
-//       json: () => Promise.resolve(query),
-//     });
-//   }
+    if (url.includes('https://www.thecocktaildb.com/api/json/v1/1/search.php?f='))
+      return Promise.resolve(firstLetterJDrinks);
 
-//   if (url.includes('https://api.mercadolibre.com/items/')) {
-//     return Promise.resolve({
-//       json: () => Promise.resolve(details),
-//     });
-//   }
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      return Promise.resolve(drinksListMock);
 
-//   return Promise.reject('Houve algo de errado com o endpoint, verifique se ele está correto');
-// };
+    if (url.includes('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c='))
+      return Promise.resolve(drinksByCategoryMock);
 
-// module.exports = mockFetch;
+    if (url.includes('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i='))
+      return Promise.resolve(drinkByIngredientMock);
+
+    if (url ==='https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      return Promise.resolve(allMealsMock);
+
+    if (url.includes('https://www.themealdb.com/api/json/v1/1/lookup.php?i=') ||
+        url.includes('https://www.themealdb.com/api/json/v1/1/search.php?s=beef'))
+      return Promise.resolve(mealDetailsMock);
+
+    if ((/https:\/\/www\.themealdb\.com\/api\/json\/v1\/1\/search\.php\?s=\w+/).test(url))
+      return Promise.resolve(nameFilterMealsMock);
+
+    if (url.includes('https://www.themealdb.com/api/json/v1/1/search.php?f='))
+      return Promise.resolve(firstLetterMealMock);
+
+    if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    return Promise.resolve(mealsListMock);
+
+    if (url.includes('https://www.themealdb.com/api/json/v1/1/filter.php?c='))
+      return Promise.resolve(mealsByCategoryMock);
+    
+    if (url.includes('https://www.themealdb.com/api/json/v1/1/filter.php?i='))
+      return Promise.resolve(mealByIngredientMock);
+
+    return Promise.reject(new Error('Invalid url'));
+  },
+});
