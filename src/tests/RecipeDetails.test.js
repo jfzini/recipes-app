@@ -17,6 +17,8 @@ describe('Test if RecipeDetails page is working correctly', () => {
   const drinkPathname = '/drinks/15997';
   const mealPathname = '/meals/52977';
   const firstRecipeBtnID = '0-recipe-button';
+  const whiteHeartIcon = 'http://localhost/whiteHeartIcon.svg';
+  const blackHeartIcon = 'http://localhost/blackHeartIcon.svg';
 
   it('should render initial meals', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
@@ -73,9 +75,9 @@ describe('Test if RecipeDetails page is working correctly', () => {
       // userEvent.click(shareBtn);
       // expect(navigator.clipboard.writeText).toHaveBeenCalledWith(link);
       const favoriteIcon = screen.getByRole('img', { name: /favorite icon/i });
-      expect(favoriteIcon).toHaveProperty('src', 'http://localhost/whiteHeartIcon.svg');
+      expect(favoriteIcon).toHaveProperty('src', whiteHeartIcon);
       userEvent.click(favoriteBtn);
-      expect(favoriteIcon).toHaveProperty('src', 'http://localhost/blackHeartIcon.svg');
+      expect(favoriteIcon).toHaveProperty('src', blackHeartIcon);
     });
 
     const startRecipeBtn = screen.getByRole('button', { name: /start recipe/i });
@@ -127,17 +129,22 @@ describe('Test if RecipeDetails page is working correctly', () => {
       const shareBtn = screen.getByRole('button', { name: /share icon/i });
       expect(shareBtn).toBeInTheDocument();
       const favoriteIcon = screen.getByRole('img', { name: /favorite icon/i });
-      expect(favoriteIcon).toHaveProperty('src', 'http://localhost/whiteHeartIcon.svg');
+      expect(favoriteIcon).toHaveProperty('src', whiteHeartIcon);
       userEvent.click(favoriteBtn);
-      expect(favoriteIcon).toHaveProperty('src', 'http://localhost/blackHeartIcon.svg');
+      expect(favoriteIcon).toHaveProperty('src', blackHeartIcon);
     });
 
     const startRecipeBtn = screen.getByRole('button', { name: /start recipe/i });
     userEvent.click(startRecipeBtn);
     expect(history.location.pathname).toBe('/drinks/15997/in-progress');
-    history.push(drinkPathname);
+
+    history.push('/drinks/15346');
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /continue recipe/i })).toBeInTheDocument();
+      const favoriteIcon = screen.getByRole('img', { name: /favorite icon/i });
+      const favoriteBtn = screen.getByRole('button', { name: /favorite icon/i });
+      expect(favoriteIcon).toHaveProperty('src', blackHeartIcon);
+      userEvent.click(favoriteBtn);
+      expect(favoriteIcon).toHaveProperty('src', whiteHeartIcon);
     });
   });
 });
