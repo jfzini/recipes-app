@@ -8,6 +8,9 @@ import { fetch } from './mocks/mockImplementation';
 describe('Test if RecipeDone page is working correctly', () => {
   beforeEach(() => {
     jest.spyOn(global, 'fetch').mockImplementation(fetch);
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
   });
 
   afterEach(() => {
@@ -40,6 +43,20 @@ describe('Test if RecipeDone page is working correctly', () => {
       });
     });
     const finishBtn = screen.getByTestId(/finish-recipe-btn/);
+
+    // adding a drink to doneRecipes
+    localStorage.setItem('doneRecipes', JSON.stringify([{
+      id: '15997',
+      type: 'drink',
+      nationality: '',
+      category: 'Ordinary Drink',
+      alcoholicOrNot: 'Optional alcohol',
+      name: 'GG',
+      image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      doneDate: '2023-06-15T22:36:53.190Z',
+      tags: [],
+    }]));
+
     userEvent.click(finishBtn);
     expect(history.location.pathname).toBe('/done-recipes');
 
@@ -56,8 +73,18 @@ describe('Test if RecipeDone page is working correctly', () => {
       const { doneDate } = storage[0];
       expect(screen.getByText(doneDate)).toBeInTheDocument();
       expect(screen.getByText(/soup/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: /share/i })).toHaveLength(2);
     });
+
+    // testing clipboard
+
+    const shareBtnDrink = screen.getAllByRole('button', { name: /share/i })[0];
+    userEvent.click(shareBtnDrink);
+    expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
+
+    const shareBtnMeal = screen.getAllByRole('button', { name: /share/i })[1];
+    userEvent.click(shareBtnMeal);
+    expect(screen.getByText(/link copied!/i)).toBeInTheDocument();
 
     // testing filters
     userEvent.click(screen.getByRole('button', { name: /drinks/i }));
@@ -88,15 +115,12 @@ describe('Test if RecipeDone page is working correctly', () => {
 
     history.push('/done-recipes');
 
-    // expect(mealRedirectButtons[1]).toBeEnabled();
-    // userEvent.click(mealRedirectButtons[1]);
+    await waitFor(() => {
+      userEvent.click(screen.getByTestId('0-horizontal-name-button'));
+    });
 
-    // await waitFor(() => {
-    //   expect(history.location.pathname).toBe('/meals/52977');
-    // });
-  });
-
-  it('ready to drink drinks should work properly', async () => {
-
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/drinks/15997');
+    });
   });
 });
