@@ -7,7 +7,7 @@ import './DoneRecipes.css';
 
 export default function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
-  const [linkCopied, setLinkCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function DoneRecipes() {
     } else {
       copy(`http://localhost:3000/drinks/${id}`);
     }
-    setLinkCopied(true);
+    setLinkCopied(id);
   };
 
   const handleFilter = (filter) => {
@@ -73,7 +73,10 @@ export default function DoneRecipes() {
                 ? `${recipe.nationality} - ${recipe.category}`
                 : recipe.alcoholicOrNot}
             </p>
-            <button onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }>
+            <button
+              data-testid={ `${index}-horizontal-name-button` }
+              onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+            >
               <p
                 data-testid={ `${index}-horizontal-name` }
               >
@@ -90,7 +93,7 @@ export default function DoneRecipes() {
             >
               <img src={ shareIcon } alt="share" />
             </button>
-            {linkCopied && <span>Link copied!</span>}
+            {linkCopied === recipe.id && <span>Link copied!</span>}
             {recipe.tags.map((tag, indexTag) => (
               <span key={ indexTag } data-testid={ `${index}-${tag}-horizontal-tag` }>
                 {tag}
