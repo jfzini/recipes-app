@@ -82,7 +82,10 @@ export default function FavoriteRecipes() {
                 ? `${recipe.nationality} - ${recipe.category}`
                 : recipe.alcoholicOrNot}
             </p>
-            <button onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }>
+            <button
+              onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
+              data-testid={ `${index}-horizontal-name-button` }
+            >
               <p
                 data-testid={ `${index}-horizontal-name` }
               >
