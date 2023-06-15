@@ -14,11 +14,11 @@ describe('Test if RecipeDone page is working correctly', () => {
     jest.restoreAllMocks();
   });
 
-  const drinkPathname = '/drinks/15997';
+  // const drinkPathname = '/drinks/15997';
   const mealPathname = '/meals/52977';
   const firstRecipeBtnID = '0-recipe-button';
-  const whiteHeartIcon = 'http://localhost/whiteHeartIcon.svg';
-  const blackHeartIcon = 'http://localhost/blackHeartIcon.svg';
+  // const whiteHeartIcon = 'http://localhost/whiteHeartIcon.svg';
+  // const blackHeartIcon = 'http://localhost/blackHeartIcon.svg';
 
   it('ready meal should work correctly', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
