@@ -31,11 +31,11 @@ describe('Test if RecipeDetails page is working correctly', () => {
     expect(history.location.pathname).toBe(mealPathname);
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: /beef asado/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /corba/i })).toBeInTheDocument();
     });
 
-    const beefAsadoImg = screen.getByRole('img', { name: /beef asado/i });
-    expect(beefAsadoImg).toHaveProperty('src', 'https://www.themealdb.com/images/media/meals/pkopc31683207947.jpg');
+    const beefAsadoImg = screen.getByRole('img', { name: /corba/i });
+    expect(beefAsadoImg).toHaveProperty('src', 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg');
     expect(screen.getByRole('img', { name: /share icon/i })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /favorite icon/i })).toBeInTheDocument();
     expect(screen.getByTestId('0-ingredient-name-and-measure')).toBeInTheDocument();
@@ -100,11 +100,11 @@ describe('Test if RecipeDetails page is working correctly', () => {
     expect(history.location.pathname).toBe(drinkPathname);
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: /155 belmont/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /gg/i })).toBeInTheDocument();
     });
 
-    const belmontImg = screen.getByRole('img', { name: /155 belmont/i });
-    expect(belmontImg).toHaveProperty('src', 'https://www.thecocktaildb.com/images/media/drink/yqvvqs1475667388.jpg');
+    const belmontImg = screen.getByRole('img', { name: /gg/i });
+    expect(belmontImg).toHaveProperty('src', 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg');
     expect(screen.getByRole('img', { name: /share icon/i })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /favorite icon/i })).toBeInTheDocument();
     expect(screen.getByTestId('0-ingredient-name-and-measure')).toBeInTheDocument();
@@ -138,7 +138,7 @@ describe('Test if RecipeDetails page is working correctly', () => {
     userEvent.click(startRecipeBtn);
     expect(history.location.pathname).toBe('/drinks/15997/in-progress');
 
-    history.push('/drinks/15346');
+    history.push('/drinks/15997');
     await waitFor(() => {
       const favoriteIcon = screen.getByRole('img', { name: /favorite icon/i });
       const favoriteBtn = screen.getByRole('button', { name: /favorite icon/i });

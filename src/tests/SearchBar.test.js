@@ -98,7 +98,7 @@ describe('Test if SearchBar component is working correctly', () => {
     userEvent.click(execSearchBtn);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/53071');
+      expect(history.location.pathname).toBe('/meals/52977');
     });
   });
 
@@ -116,7 +116,7 @@ describe('Test if SearchBar component is working correctly', () => {
     userEvent.click(execSearchBtn);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/drinks/15346');
+      expect(history.location.pathname).toBe('/drinks/15997');
     });
   });
 
