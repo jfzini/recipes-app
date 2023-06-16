@@ -12,7 +12,7 @@ export default function Recipes() {
     renderFilters,
     renderFilteredRecipes,
   } = useContext(RecipesContext);
-  const [activeFilter, setActiveFilter] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('');
   const history = useHistory();
   const { pathname } = history.location;
   const RECIPES_LIMIT = 11;
@@ -55,12 +55,12 @@ export default function Recipes() {
                   key={ index }
                   data-testid={ `${filter.strCategory}-category-filter` }
                   onClick={ () => {
-                    if (activeFilter) {
+                    if (activeFilter === filter.strCategory) {
                       renderInitialRecipes(pathname);
                     } else {
                       renderFilteredRecipes(pathname, filter.strCategory);
                     }
-                    setActiveFilter(!activeFilter);
+                    setActiveFilter(filter.strCategory);
                   } }
                 >
                   {filter.strCategory}

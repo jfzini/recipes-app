@@ -12,6 +12,7 @@ describe('Test if SearchBar component is working correctly', () => {
   const nameRadioID = 'name-search-radio';
   const searchBtnID = 'exec-search-btn';
   const firstRecipeID = '0-recipe-button';
+  const errorMessage = 'Sorry, we haven\'t found any recipes for these filters.';
 
   beforeEach(() => {
     jest.spyOn(global, 'fetch').mockImplementation(fetch);
@@ -24,6 +25,8 @@ describe('Test if SearchBar component is working correctly', () => {
   it('should work correctly on meals page', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
     expect(screen.getByTestId(profileBtnID)).toBeInTheDocument();
     expect(screen.queryByTestId(searchInputID)).not.toBeInTheDocument();
@@ -35,6 +38,18 @@ describe('Test if SearchBar component is working correctly', () => {
     const firstLetterSearchRadio = screen.getByTestId('first-letter-search-radio');
     const execSearchBtn = screen.getByTestId(searchBtnID);
 
+    userEvent.type(searchInput, 'xablau');
+    userEvent.click(ingredientSearchRadio);
+    expect(ingredientSearchRadio).toBeChecked();
+    userEvent.click(execSearchBtn);
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith(errorMessage));
+
+    userEvent.clear(searchInput);
+    userEvent.type(searchInput, 'J');
+    userEvent.click(firstLetterSearchRadio);
+    userEvent.click(execSearchBtn);
+
+    userEvent.clear(searchInput);
     userEvent.type(searchInput, 'lemon');
     userEvent.click(nameSearchRadio);
     expect(nameSearchRadio).toBeChecked();
@@ -55,6 +70,8 @@ describe('Test if SearchBar component is working correctly', () => {
   it('should work correctly on drinks page', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+
     expect(screen.getByTestId(searchIconID)).toBeInTheDocument();
     expect(screen.getByTestId(profileBtnID)).toBeInTheDocument();
     expect(screen.queryByTestId(searchInputID)).not.toBeInTheDocument();
@@ -66,7 +83,19 @@ describe('Test if SearchBar component is working correctly', () => {
     const firstLetterSearchRadio = screen.getByTestId('first-letter-search-radio');
     const execSearchBtn = screen.getByTestId(searchBtnID);
 
+    userEvent.type(searchInput, 'xablau');
+    userEvent.click(ingredientSearchRadio);
+    expect(ingredientSearchRadio).toBeChecked();
+    userEvent.click(execSearchBtn);
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith(errorMessage));
+
+    userEvent.clear(searchInput);
+    userEvent.type(searchInput, 'J');
+    userEvent.click(firstLetterSearchRadio);
+    userEvent.click(execSearchBtn);
+
     userEvent.click(screen.getByRole('button', { name: /all/i }));
+    userEvent.clear(searchInput);
     userEvent.type(searchInput, 'lemon');
     userEvent.click(nameSearchRadio);
     expect(nameSearchRadio).toBeChecked();
@@ -87,11 +116,20 @@ describe('Test if SearchBar component is working correctly', () => {
   it('should go to the details page if only 1 recipe is found in meals page', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
 
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+
     userEvent.click(screen.getByTestId(searchIconID));
 
     const searchInput = screen.getByTestId(searchInputID);
     const nameSearchRadio = screen.getByTestId(nameRadioID);
     const execSearchBtn = screen.getByTestId(searchBtnID);
+
+    userEvent.type(searchInput, 'xablau');
+    userEvent.click(nameSearchRadio);
+    expect(nameSearchRadio).toBeChecked();
+    userEvent.click(execSearchBtn);
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith(errorMessage));
+    userEvent.clear(searchInput);
 
     userEvent.type(searchInput, 'beef asado');
     userEvent.click(nameSearchRadio);
@@ -105,11 +143,20 @@ describe('Test if SearchBar component is working correctly', () => {
   it('should go to the details page if only 1 recipe is found in drinks page', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/drinks');
 
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+
     userEvent.click(screen.getByTestId(searchIconID));
 
     const searchInput = screen.getByTestId(searchInputID);
     const nameSearchRadio = screen.getByTestId(nameRadioID);
     const execSearchBtn = screen.getByTestId(searchBtnID);
+
+    userEvent.type(searchInput, 'xablau');
+    userEvent.click(nameSearchRadio);
+    expect(nameSearchRadio).toBeChecked();
+    userEvent.click(execSearchBtn);
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith(errorMessage));
+    userEvent.clear(searchInput);
 
     userEvent.type(searchInput, '155');
     userEvent.click(nameSearchRadio);

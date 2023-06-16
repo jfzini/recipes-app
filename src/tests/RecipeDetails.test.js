@@ -8,6 +8,9 @@ import { fetch } from './mocks/mockImplementation';
 describe('Test if RecipeDetails page is working correctly', () => {
   beforeEach(() => {
     jest.spyOn(global, 'fetch').mockImplementation(fetch);
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
   });
 
   afterEach(() => {
@@ -48,13 +51,6 @@ describe('Test if RecipeDetails page is working correctly', () => {
 
   it('meals detail page should work correctly', async () => {
     const { history } = renderWithRouterAndContext(<App />, '/meals');
-    // jest.mock('clipboard-copy', () => ({
-    //   __esModule: true,
-    //   default: (text) => {
-    //     // Simulate the copy behavior
-    //     writeText(text);
-    //   },
-    // }));
 
     await waitFor(() => {
       const firstRecipeButton = screen.getByTestId(firstRecipeBtnID);
@@ -67,13 +63,9 @@ describe('Test if RecipeDetails page is working correctly', () => {
       const favoriteBtn = screen.getByRole('button', { name: /favorite icon/i });
       const shareBtn = screen.getByRole('button', { name: /share icon/i });
       expect(shareBtn).toBeInTheDocument();
-      // const link = 'http://localhost:3000/example';
-      // Object.defineProperty(window, 'location', {
-      //   value: { href: link },
-      //   writable: true,
-      // });
-      // userEvent.click(shareBtn);
-      // expect(navigator.clipboard.writeText).toHaveBeenCalledWith(link);
+
+      userEvent.click(shareBtn);
+      expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(3);
       const favoriteIcon = screen.getByRole('img', { name: /favorite icon/i });
       expect(favoriteIcon).toHaveProperty('src', whiteHeartIcon);
       userEvent.click(favoriteBtn);

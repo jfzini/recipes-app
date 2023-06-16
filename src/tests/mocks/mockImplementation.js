@@ -17,7 +17,9 @@ const fetchDrinks = (url) => Promise.resolve({
   status: 200,
   ok: true,
   json: () => {
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=xablau') return Promise.reject(new Error('No drinks found'));
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') return Promise.resolve(allDrinksMock);
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=xablau') return Promise.reject(new Error('No drinks found'));
     if (url.includes('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=')
           || url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=155') return Promise.resolve(drinkDetailsMock);
     if ((/https:\/\/www\.thecocktaildb\.com\/api\/json\/v1\/1\/search\.php\?s=\w+/).test(url)) return Promise.resolve(nameFilterDrinksMock);
@@ -33,7 +35,9 @@ const fetchMeals = (url) => Promise.resolve({
   status: 200,
   ok: true,
   json: () => {
+    if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=xablau') return Promise.reject(new Error('No meals found'));
     if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') return Promise.resolve(allMealsMock);
+    if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=xablau') return Promise.reject(new Error('No meals found'));
     if (url.includes('https://www.themealdb.com/api/json/v1/1/lookup.php?i=')
           || url.includes('https://www.themealdb.com/api/json/v1/1/search.php?s=beef')) return Promise.resolve(mealDetailsMock);
     if ((/https:\/\/www\.themealdb\.com\/api\/json\/v1\/1\/search\.php\?s=\w+/).test(url)) return Promise.resolve(nameFilterMealsMock);

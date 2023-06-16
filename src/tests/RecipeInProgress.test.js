@@ -8,6 +8,9 @@ import { fetch } from './mocks/mockImplementation';
 describe('Test if RecipeInProgress page is working correctly', () => {
   beforeEach(() => {
     jest.spyOn(global, 'fetch').mockImplementation(fetch);
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
   });
 
   afterEach(() => {
@@ -52,6 +55,9 @@ describe('Test if RecipeInProgress page is working correctly', () => {
       userEvent.click(firstIngredientCheckbox);
       expect(screen.getByTestId('instructions')).toBeInTheDocument();
       expect(screen.getByTestId(/finish-recipe-btn/)).toBeDisabled();
+      userEvent.click(screen.getByRole('button', { name: /share icon/i }));
+      expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
+      expect();
     });
 
     // tests if favorite button works

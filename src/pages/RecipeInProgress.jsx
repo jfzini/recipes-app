@@ -66,19 +66,17 @@ export default function RecipeInProgress() {
   };
 
   const handleFavorites = () => {
-    if (favorite) {
-      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (favoriteRecipes) {
-        favoriteRecipes.forEach((favoriteRecipe) => {
-          if (pathname.includes(favoriteRecipe.id)) {
-            setFavorite(false);
-            const removedFavorite = favoriteRecipes.filter(
-              (filterRecipe) => filterRecipe.id !== favoriteRecipe.id,
-            );
-            localStorage.setItem('favoriteRecipes', JSON.stringify(removedFavorite));
-          }
-        });
-      }
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorite && favoriteRecipes) {
+      favoriteRecipes.forEach((favoriteRecipe) => {
+        if (pathname.includes(favoriteRecipe.id)) {
+          setFavorite(false);
+          const removedFavorite = favoriteRecipes.filter(
+            (filterRecipe) => filterRecipe.id !== favoriteRecipe.id,
+          );
+          localStorage.setItem('favoriteRecipes', JSON.stringify(removedFavorite));
+        }
+      });
     } else {
       if (pathname.includes('meals')) {
         addFavoriteMeal();
