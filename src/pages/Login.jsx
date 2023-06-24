@@ -43,6 +43,7 @@ export default function Login() {
         data-testid="password-input"
         value={ user.password }
         onChange={ handleChange }
+        onKeyDown={ (e) => e.key === 'Enter' && handleSubmit() }
       />
       <button
         type="button"

@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import copy from 'clipboard-copy';
 import { fetchMealByID } from '../services/theMealApi';
 import { fetchDrinkByID } from '../services/theCocktailApi';
 import { saveFavoriteRecipe } from '../services/storage';
-import shareIcon from '../images/shareIcon.svg';
-import blackFavoriteIcon from '../images/blackHeartIcon.svg';
-import whiteFavoriteIcon from '../images/whiteHeartIcon.svg';
+import RecipeData from '../components/RecipeData';
 import './RecipeInProgress.css';
 
 export default function RecipeInProgress() {
   const [recipe, setRecipe] = useState(null);
   const [favorite, setFavorite] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const history = useHistory();
@@ -27,12 +23,6 @@ export default function RecipeInProgress() {
       const fetchedDrink = await fetchDrinkByID(id);
       setRecipe(fetchedDrink);
     }
-  };
-
-  const handleCopy = () => {
-    const filteredPathname = pathname.replace('/in-progress', '');
-    copy(`http://localhost:3000${filteredPathname}`);
-    setLinkCopied(true);
   };
 
   const addFavoriteMeal = () => {
@@ -134,7 +124,7 @@ export default function RecipeInProgress() {
     }
   };
 
-  const handleFinishRecipe = (doneRecipe) => {
+  const finishRecipe = (doneRecipe) => {
     history.push('/done-recipes');
     const doneRecipeData = {
       id,
@@ -165,77 +155,16 @@ export default function RecipeInProgress() {
 
   return (
     <div>
-      {recipe
-        && recipe.map((receipt) => (
-          <div key={ id }>
-            <h4 data-testid="recipe-title">{receipt.strMeal || receipt.strDrink}</h4>
-            <img
-              src={ receipt.strMealThumb || receipt.strDrinkThumb }
-              alt={ receipt.strMeal || receipt.strDrink }
-              data-testid="recipe-photo"
-            />
-            <button data-testid="share-btn" onClick={ handleCopy }>
-              <img src={ shareIcon } alt="share icon" />
-            </button>
-            {linkCopied && <span>Link copied!</span>}
-            <button onClick={ handleFavorites }>
-              {favorite ? (
-                <img
-                  src={ blackFavoriteIcon }
-                  alt="favorite icon"
-                  data-testid="favorite-btn"
-                />
-              ) : (
-                <img
-                  src={ whiteFavoriteIcon }
-                  alt="favorite icon"
-                  data-testid="favorite-btn"
-                />
-              )}
-            </button>
-            <p data-testid="recipe-category">
-              {pathname.includes('/meals') ? receipt.strCategory : receipt.strAlcoholic}
-            </p>
-            <ul>
-              {Object.keys(receipt)
-                .filter((key) => key.includes('strIngredient') && receipt[key])
-                .map((ingredient, index) => (
-                  <div key={ index }>
-                    <label
-                      htmlFor={ `${index}-ingredient-checkbox` }
-                      data-testid={ `${index}-ingredient-step` }
-                      className={ usedIngredients.includes(receipt[ingredient])
-                        ? 'checked-ingredient'
-                        : '' }
-                    >
-                      {receipt[ingredient]}
-                      {' - '}
-                      {receipt[ingredient.replace('strIngredient', 'strMeasure')]}
-                      <input
-                        type="checkbox"
-                        id={ `${index}-ingredient-checkbox` }
-                        onClick={ () => handleUsedIngredients(receipt[ingredient]) }
-                        checked={ usedIngredients.includes(receipt[ingredient]) }
-                      />
-                    </label>
-                  </div>
-                ))}
-            </ul>
-            <p data-testid="instructions">{receipt.strInstructions}</p>
-            <button
-              data-testid="finish-recipe-btn"
-              disabled={
-                Object.keys(receipt)
-                  .filter((key) => key
-                    .includes('strIngredient') && receipt[key]).length
-                  !== usedIngredients.length
-              }
-              onClick={ () => handleFinishRecipe(receipt) }
-            >
-              Finalizar receita
-            </button>
-          </div>
-        ))}
+      <RecipeData
+        recipe={ recipe }
+        id={ id }
+        favorite={ favorite }
+        handleFavorites={ handleFavorites }
+        type={ pathname.includes('in-progress') ? 'progress' : 'details' }
+        finishRecipe={ finishRecipe }
+        usedIngredients={ usedIngredients }
+        handleUsedIngredients={ handleUsedIngredients }
+      />
     </div>
   );
 }
