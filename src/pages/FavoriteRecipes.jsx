@@ -4,7 +4,7 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 import blackFavoriteIcon from '../images/blackHeartIcon.svg';
-import './DoneRecipes.css';
+import './css/DoneRecipes.css';
 
 export default function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);

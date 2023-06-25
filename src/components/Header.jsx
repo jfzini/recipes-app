@@ -11,9 +11,6 @@ export default function Header() {
     renderSearchIcon: true,
     showSearchBar: false,
   });
-  // const [search, setSearch] = useState({
-  //   search: '',
-  // });
 
   const { pathname } = history.location;
 
