@@ -1,0 +1,70 @@
+.page-container {
+  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.93);
+  background-image: url('../../images/seamless-pattern.webp');
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  font-family: Remains Stepping , sans-serif;
+  height: 100dvh;
+  justify-content: center;
+  width: 100dvw;
+}
+
+.login-form {
+  animation: appear 1.5s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.521);
+  border-radius: 25px;
+  box-shadow: 0 0 4px rgb(252, 59, 0);
+  display: flex;
+  flex-direction: column;
+  height: min(40dvh, 300px);
+  justify-content: space-evenly;
+  margin: auto;
+  padding: 20px;
+  width: min(80dvw, 400px);
+}
+
+.login-form input {
+  border: none;
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px gray;
+  font-family: Montserrat , sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 5px 10px;
+}
+
+.login-form input:focus {
+  outline: 1px solid rgba(252, 59, 0, 0.425);
+}
+
+.valid-form {
+  box-shadow: 0 0 4px rgb(62, 196, 0);
+}
+
+.valid-form input:focus {
+  outline: 1px solid rgb(62, 196, 0);
+}
+
+.login-form button {
+  background-color: rgb(240, 240, 240);
+  border: none;
+  border-radius: 5px;
+  font-family: Montserrat , sans-serif;
+  font-size: 1rem;
+  padding: 5px 10px;
+}
+
+.login-form button:enabled {
+  background-color: rgba(62, 196, 0, 0.75);
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+h1 {
+  align-self: center;
+  font-family: Prestiquen , sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+}

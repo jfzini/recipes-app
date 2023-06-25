@@ -4,7 +4,7 @@ import { fetchMealByID } from '../services/theMealApi';
 import { fetchDrinkByID } from '../services/theCocktailApi';
 import { saveFavoriteRecipe } from '../services/storage';
 import RecipeData from '../components/RecipeData';
-import './RecipeInProgress.css';
+import './css/RecipeInProgress.css';
 
 export default function RecipeInProgress() {
   const [recipe, setRecipe] = useState(null);

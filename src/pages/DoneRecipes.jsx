@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
-import './DoneRecipes.css';
+import './css/DoneRecipes.css';
 
 export default function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);

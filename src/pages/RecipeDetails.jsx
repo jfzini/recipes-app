@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom/cjs/react-router-dom.min
 import { fetchMealByID, fetchMealByName } from '../services/theMealApi';
 import { fetchDrinkByID, fetchDrinkByName } from '../services/theCocktailApi';
 import { saveFavoriteRecipe } from '../services/storage';
-import './RecipeDetails.css';
+import './css/RecipeDetails.css';
 import RecipeData from '../components/RecipeData';
 
 export default function RecipeDetails() {

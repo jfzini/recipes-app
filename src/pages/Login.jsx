@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { saveToLocalStorage } from '../services/storage';
+import './css/Login.css';
 
 export default function Login() {
   const history = useHistory();
@@ -27,33 +28,38 @@ export default function Login() {
   }, [user]);
 
   return (
-    <form>
-      <input
-        type="email"
-        name="email"
-        id=""
-        data-testid="email-input"
-        value={ user.email }
-        onChange={ handleChange }
-      />
-      <input
-        type="password"
-        name="password"
-        id=""
-        data-testid="password-input"
-        value={ user.password }
-        onChange={ handleChange }
-        onKeyDown={ (e) => e.key === 'Enter' && handleSubmit() }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !isValid }
-        onClick={ handleSubmit }
-      >
-        Enter
-      </button>
-    </form>
+    <div className='page-container'>
+      <form className={isValid ? 'login-form valid-form' : 'login-form'}>
+        <h1>Good Cooking</h1>
+        <input
+          type="email"
+          name="email"
+          id=""
+          data-testid="email-input"
+          value={ user.email }
+          onChange={ handleChange }
+          placeholder='email@email.com'
+        />
+        <input
+          type="password"
+          name="password"
+          id=""
+          data-testid="password-input"
+          value={ user.password }
+          onChange={ handleChange }
+          onKeyDown={ (e) => e.key === 'Enter' && handleSubmit() }
+          placeholder='password (min. 7 chars)'
+        />
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !isValid }
+          onClick={ handleSubmit }
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 
