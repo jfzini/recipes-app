@@ -1,0 +1,32 @@
+.recipe-page-container {
+  align-items: center;
+  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.93);
+  background-image: url('../../images/seamless-pattern.webp');
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-block: 10px;
+  width: min(100%, 600px);
+}
+
+.filter-button {
+  font-family: Montserrat , sans-serif;
+  margin: 5px;
+  padding: 5px;
+  width: 90px;
+}
+
+.active-filter {
+  border: 2px solid var(--green);
+}
+
+.inactive-filter {
+  border: 2px solid var(--orangered);
+}

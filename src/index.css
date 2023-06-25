@@ -8,6 +8,13 @@
   box-sizing: border-box;
 }
 
+:root {
+  --green: rgb(62, 196, 0);
+  --lightgreen: rgba(62, 196, 0, 0.75);
+  --orangered: rgb(252, 59, 0);
+  --lightorangered: rgba(252, 59, 0, 0.425);
+}
+
 @keyframes appear {
   from {
     opacity: 0;

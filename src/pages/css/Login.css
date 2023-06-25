@@ -15,7 +15,7 @@
   animation: appear 1.5s ease-in-out;
   background-color: rgba(255, 255, 255, 0.521);
   border-radius: 25px;
-  box-shadow: 0 0 4px rgb(252, 59, 0);
+  box-shadow: 0 0 4px var(--orangered);
   display: flex;
   flex-direction: column;
   height: min(40dvh, 300px);
@@ -36,15 +36,15 @@
 }
 
 .login-form input:focus {
-  outline: 1px solid rgba(252, 59, 0, 0.425);
+  outline: 1px solid var(--lightorangered);
 }
 
 .valid-form {
-  box-shadow: 0 0 4px rgb(62, 196, 0);
+  box-shadow: 0 0 4px var(--green);
 }
 
 .valid-form input:focus {
-  outline: 1px solid rgb(62, 196, 0);
+  outline: 1px solid var(--green);
 }
 
 .login-form button {
@@ -57,7 +57,7 @@
 }
 
 .login-form button:enabled {
-  background-color: rgba(62, 196, 0, 0.75);
+  background-color: var(--lightgreen);
   cursor: pointer;
   padding: 5px 10px;
 }

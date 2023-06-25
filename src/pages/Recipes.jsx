@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import RecipesContext from '../context/Context';
 import Footer from '../components/Footer';
+import './css/Recipes.css';
 
 export default function Recipes() {
   const {
@@ -35,14 +36,31 @@ export default function Recipes() {
     history.push(`${pathname}/${id}`);
   };
 
+  const checkFilters = (filter=null) => {
+    if (filter === activeFilter) {
+      return 'filter-button active-filter';
+    }
+    if (activeFilter === '') {
+      return 'filter-button';
+    }
+    if (filter !== activeFilter) {
+      return 'filter-button inactive-filter';
+    }
+    return 'filter-button';
+  };
+
   return (
-    <div>
+    <div className='recipe-page-container'>
       <Header />
-      <div>
+      <div className='filters-container'>
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => renderInitialRecipes(pathname) }
+          onClick={ () => {
+            renderInitialRecipes(pathname)
+            setActiveFilter('');
+          } }
+          className={checkFilters()}
         >
           All
         </button>
@@ -53,14 +71,16 @@ export default function Recipes() {
                 <button
                   type="button"
                   key={ index }
+                  className={checkFilters(filter.strCategory)}
                   data-testid={ `${filter.strCategory}-category-filter` }
                   onClick={ () => {
                     if (activeFilter === filter.strCategory) {
                       renderInitialRecipes(pathname);
+                      setActiveFilter('');
                     } else {
                       renderFilteredRecipes(pathname, filter.strCategory);
+                      setActiveFilter(filter.strCategory);
                     }
-                    setActiveFilter(filter.strCategory);
                   } }
                 >
                   {filter.strCategory}
