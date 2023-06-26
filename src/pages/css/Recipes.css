@@ -1,7 +1,7 @@
 .recipe-page-container {
   align-items: center;
   background-blend-mode: lighten;
-  background-color: rgba(255, 255, 255, 0.93);
+  background-color: rgba(255, 255, 255, 0.95);
   background-image: url('../../images/seamless-pattern.webp');
   background-size: contain;
   display: flex;
@@ -17,16 +17,74 @@
 }
 
 .filter-button {
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 3px gray;
+  cursor: pointer;
   font-family: Montserrat , sans-serif;
   margin: 5px;
   padding: 5px;
+  transition: all 0.2s ease-in-out;
   width: 90px;
 }
 
+.active-filter, .inactive-filter {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .active-filter {
-  border: 2px solid var(--green);
+  background-color: var(--orangered);
+  color: white;
+  font-weight: 700;
 }
 
 .inactive-filter {
-  border: 2px solid var(--orangered);
+  background-color: rgb(231, 231, 231);
+  box-shadow: none;
+  color: gray;
+}
+
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: min(80% dvw, 1200px);
+}
+
+.recipe-card {
+  cursor: pointer;
+  margin: 20px 10px;
+  position: relative;
+}
+
+.recipe-image-container {
+  background-color: transparent;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px gray;
+  height: min(80dvw, 300px);
+  overflow: hidden;
+  width: min(80dvw, 300px);
+}
+
+.recipe-image {
+  transition: all 0.3s ease-in-out;
+  width: min(80dvw, 300px);
+}
+
+.recipe-card:hover img {
+  transform: scale(1.1);
+}
+
+.recipe-name {
+  bottom: 20px;
+  color: white;
+  font-family: Remains Stepping , sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  left: 20px;
+  position: absolute;
+  text-shadow: 0 0 5px black;
 }
