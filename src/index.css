@@ -15,6 +15,25 @@
   --lightorangered: rgba(252, 59, 0, 0.425);
 }
 
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(230, 230, 230);
+  border-radius: 100vw;
+  margin-block: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--lightorangered);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--orangered);
+}
+
 @keyframes appear {
   from {
     opacity: 0;

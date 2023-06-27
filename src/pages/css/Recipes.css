@@ -6,6 +6,8 @@
   background-size: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100dvh;
+  padding-bottom: 60px;
 }
 
 .filters-container {
@@ -59,7 +61,7 @@
 }
 
 .recipe-card {
-  animation: appear 0.5s ease-in-out;
+  animation: appear 0.7s ease-in-out;
   cursor: pointer;
   margin: 20px 10px;
   position: relative;
@@ -69,27 +71,27 @@
   background-color: transparent;
   border-radius: 20px;
   box-shadow: 2px 2px 3px gray;
-  height: min(80dvw, 300px);
+  height: min(40dvw, 300px);
   overflow: hidden;
-  width: min(80dvw, 300px);
+  width: min(40dvw, 300px);
 }
 
 .recipe-image {
   transition: all 0.3s ease-in-out;
-  width: min(80dvw, 300px);
+  width: min(40dvw, 300px);
 }
 
 .recipe-card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.07);
 }
 
 .recipe-name {
   bottom: 20px;
   color: white;
   font-family: Remains Stepping , sans-serif;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
   left: 20px;
   position: absolute;
-  text-shadow: 0 0 5px black;
+  text-shadow: 0 0 5px black , 0 0 5px black;
 }

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import RecipesContext from '../context/Context';
 import Footer from '../components/Footer';
 import './css/Recipes.css';
-import { act } from 'react-dom/test-utils';
+import { PropagateLoader } from 'react-spinners';
 
 export default function Recipes() {
   const { recipes, renderInitialRecipes, filters, renderFilters, renderFilteredRecipes } =
@@ -68,7 +68,12 @@ export default function Recipes() {
     <div className="recipe-page-container">
       <Header />
       {loadingFilters ? (
-        <div>Loading filters...</div>
+        <PropagateLoader 
+          color="rgba(252, 59, 0, 0.425)"
+          size={10}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       ) : (
         <div className="filters-container">
           <button
@@ -117,7 +122,12 @@ export default function Recipes() {
             : ''}
         </div>
       )}
-      {loadingRecipes ? <div>Loading recipes...</div> : 
+      {loadingRecipes ? <PropagateLoader 
+          color="rgba(252, 59, 0, 0.425)"
+          size={10}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        /> : 
       <div className='recipes-container'>
         {recipes && recipes.length >= 1
           ? recipes.map((recipe, index) => {

@@ -48,8 +48,9 @@
   box-shadow: 0 0 4px var(--orangered);
 }
 
-.icons-container > button > img {
+.header-img {
   display: block;
+  width: 30px;
 }
 
 .radio-container {

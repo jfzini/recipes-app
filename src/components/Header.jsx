@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import searchIcon from '../images/searchIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.png';
+import profileIcon from '../images/profileIcon.png';
 import './css/Header.css';
 
 export default function Header() {
@@ -43,7 +43,12 @@ export default function Header() {
     <div className='header-container'>
       <div className="icons-container">
         <button onClick={() => history.push('/profile')}>
-          <img src={profileIcon} alt="profile-icon" data-testid="profile-top-btn" />
+          <img
+            src={profileIcon}
+            alt="profile-icon"
+            data-testid="profile-top-btn"
+            className='header-img'
+          />
         </button>
         <h1 data-testid="page-title" className="header-title">
           {headerData.title}
@@ -59,7 +64,12 @@ export default function Header() {
               })
             }
           >
-            <img src={searchIcon} alt="search-icon" data-testid="search-top-btn" />
+            <img
+              src={searchIcon}
+              alt="search-icon"
+              data-testid="search-top-btn"
+              className='header-img'
+            />
           </button>
         )}
       </div>
