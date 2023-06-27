@@ -1,0 +1,128 @@
+.detail-page-container {
+  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.95);
+  background-image: url('../../images/seamless-pattern.webp');
+  background-size: 100%;
+  min-height: 100dvh;
+}
+
+.detail-hero {
+  box-shadow: 0 0 4px var(--lightorangered);
+  height: max(15dvh, 130px);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.detail-hero > button {
+  position: absolute;
+  z-index: 10;
+}
+
+.detail-title {
+  color: white;
+  font-family: Remains Stepping , sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  left: 10%;
+  position: absolute;
+  text-shadow: 0 0 5px black , 0 0 5px black;
+  top: 20%;
+}
+
+/* =============== GONNA NEED TO ADJUST WITH MEDIA QUERY =============== */
+.detail-img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.share-btn, .favorite-btn {
+  background-color: white;
+  border: 2px solid var(--lightorangered);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 8px;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+}
+
+.share-btn {
+  bottom: 5%;
+  left: 5%;
+}
+
+.favorite-btn {
+  bottom: 5%;
+  right: 5%;
+}
+
+.share-btn:hover, .favorite-btn:hover {
+  box-shadow: 0 0 5px var(--orangered) , 0 0 5px var(--orangered);
+}
+
+.detail-icons {
+  display: block;
+  width: 20px;
+}
+
+/* =============== GONNA NEED TO ADJUST WITH MEDIA QUERY =============== */
+.recipe-category {
+  background-color: var(--orangered);
+  border-radius: 5px;
+  color: white;
+  font-family: Remains Stepping , sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  position: absolute;
+  right: -15%;
+  text-align: center;
+  top: 15%;
+  transform: rotate(40deg);
+  width: 200px;
+}
+
+.ingredients-list {
+  padding: 20px;
+}
+
+.subtitle {
+  font-family: Remains Stepping , sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+li {
+  margin-left: 30px;
+}
+
+li::marker {
+  color: var(--lightorangered);
+  font-size: 1.5rem;
+}
+
+.instructions {
+  line-height: 1.8rem;
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: justify;
+}
+
+.instructions-body {
+  text-indent: 2rem;
+}
+
+.video-container {
+  padding: 20px;
+}
+
+.video {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--lightorangered) , 0 0 10px var(--lightorangered);
+  display: block;
+  height: 60dvw;
+  margin: 40px auto 60px;
+  width: 100%;
+}

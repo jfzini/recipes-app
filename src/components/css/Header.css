@@ -121,7 +121,7 @@ input[ type = 'radio' ]:checked:after {
 
 .search-icon {
   border: 2px solid var(--orangered) ! important;
-  box-shadow: 0 0 5px red;
+  box-shadow: 0 0 5px var(--orangered) , 0 0 5px var(--orangered);
 }
 
 .header-title {

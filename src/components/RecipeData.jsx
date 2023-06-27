@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
-import blackFavoriteIcon from '../images/blackHeartIcon.svg';
-import whiteFavoriteIcon from '../images/whiteHeartIcon.svg';
+import filledCopyIcon from '../images/filledCopyIcon.png';
+import emptyCopyIcon from '../images/emptyCopyIcon.png';
+import filledFavoriteIcon from '../images/filledFavoriteIcon.png';
+import emptyFavoriteIcon from '../images/emptyFavoriteIcon.png';
+import './css/RecipeData.css';
 
 export default function RecipeData({
   recipe,
@@ -30,43 +32,61 @@ export default function RecipeData({
       : path;
     copy(`http://localhost:3000${filteredPathname}`);
     setLinkCopied(recipeID);
+    setTimeout(() => {
+      setLinkCopied('');
+    }, 10000);
   };
 
   return (
-    <div>
+    <div className='detail-page-container'>
       {recipe && recipe.map((recipeData) => (
         <div key={ id }>
-          <h4 data-testid="recipe-title">{recipeData.strMeal || recipeData.strDrink}</h4>
-          <img
-            src={ recipeData.strMealThumb || recipeData.strDrinkThumb }
-            alt={ recipeData.strMeal || recipeData.strDrink }
-            data-testid="recipe-photo"
-          />
-          <button data-testid="share-btn" onClick={ () => handleCopy(pathname, id) }>
-            <img src={ shareIcon } alt="share icon" />
-          </button>
-          {linkCopied === id && <span>Link copied!</span>}
-          <button onClick={ handleFavorites }>
-            {favorite ? (
+          <div className='detail-hero'>
+            <h2 data-testid="recipe-title" className='detail-title'>
+              {recipeData.strMeal || recipeData.strDrink}
+            </h2>
+            <img
+              src={ recipeData.strMealThumb || recipeData.strDrinkThumb }
+              alt={ recipeData.strMeal || recipeData.strDrink }
+              data-testid="recipe-photo"
+              className='detail-img'
+            />
+            <button
+              data-testid="share-btn"
+              onClick={ () => handleCopy(pathname, id) }
+              className='share-btn'
+            >
               <img
-                src={ blackFavoriteIcon }
-                alt="favorite icon"
-                data-testid="favorite-btn"
+                src={ linkCopied === id ? filledCopyIcon : emptyCopyIcon }
+                alt="share icon"
+                className='detail-icons'
               />
-            ) : (
-              <img
-                src={ whiteFavoriteIcon }
-                alt="favorite icon"
-                data-testid="favorite-btn"
-              />
-            )}
-          </button>
-          <p data-testid="recipe-category">
-            {pathname.includes('/meals')
-              ? recipeData.strCategory
-              : recipeData.strAlcoholic}
-          </p>
-          <ul>
+            </button>
+            <button onClick={ handleFavorites } className='favorite-btn'>
+              {favorite ? (
+                <img
+                  src={ filledFavoriteIcon }
+                  alt="favorite icon"
+                  data-testid="favorite-btn"
+                  className='detail-icons'
+                />
+              ) : (
+                <img
+                  src={ emptyFavoriteIcon }
+                  alt="favorite icon"
+                  data-testid="favorite-btn"
+                  className='detail-icons'
+                />
+              )}
+            </button>
+            <p data-testid="recipe-category" className='recipe-category'>
+              {pathname.includes('/meals')
+                ? recipeData.strCategory
+                : recipeData.strAlcoholic}
+            </p>
+          </div>
+          <ul className='ingredients-list'>
+            <h3 className='subtitle'>Ingredients</h3>
             {Object.keys(recipeData)
               .filter((key) => key.includes('strIngredient') && recipeData[key])
               .map((ingredient, index) => {
@@ -107,15 +127,20 @@ export default function RecipeData({
                 );
               })}
           </ul>
-          <p data-testid="instructions">{recipeData.strInstructions}</p>
+          <div className='instructions'>
+            <h3 className='subtitle'>Instructions</h3>
+            <p data-testid="instructions" className='instructions-body'>{recipeData.strInstructions}</p>
+          </div>
           {pathname.includes('meals') && (
-            <iframe
-              title={ recipeData.strMeal }
-              width="420"
-              height="315"
-              src={ recipeData.strYoutube.replace('watch?v=', 'embed/') }
-              data-testid="video"
-            />
+            <div className='video-container'>
+              <h3 className='subtitle'>Tutorial</h3>
+              <iframe
+                title={ recipeData.strMeal }
+                src={ recipeData.strYoutube.replace('watch?v=', 'embed/') }
+                data-testid="video"
+                className='video'
+              />
+            </div>
           )}
           {type === 'progress' && (
             <button
