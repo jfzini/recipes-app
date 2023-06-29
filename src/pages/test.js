@@ -22,7 +22,7 @@ function subsetA(arr) {
 
 
 function getNumber(binary) {
-  let currentNode = binary;
+  let currentNode = binary; //head
   let total = 0;
   
   while(currentNode) {
@@ -35,3 +35,62 @@ function getNumber(binary) {
   }
   return total;
 }
+
+function getMinimumMoves(quantity) {
+  let moves = 0;
+  let firstConsignment = [0, 0];
+  let secondConsignment = quantity;
+  let sumFirstConsignment = firstConsignment.reduce((a, b) => a + b);
+  let sumSecondConsignment = secondConsignment.reduce((a, b) => a + b);
+  let complete = false;
+  
+  if (!quantity.length) {
+    return moves;
+  }
+
+  while (!complete) {
+    if (sumFirstConsignment === sumSecondConsignment) {
+      complete = true;
+    }
+    if (sumFirstConsignment < sumSecondConsignment) {
+      sumFirstConsignment = sumFirstConsignment + secondConsignment[0];
+      sumSecondConsignment = sumSecondConsignment - secondConsignment[0];
+      firstConsignment.push(secondConsignment[0]);
+      secondConsignment.shift();
+    }
+    if (sumFirstConsignment > sumSecondConsignment) {
+      if (sumSecondConsignment === 0) {
+        sumFirstConsignment = sumFirstConsignment - firstConsignment[firstConsignment.length - 1];
+        sumSecondConsignment = sumSecondConsignment + firstConsignment[firstConsignment.length - 1];
+        secondConsignment.push(firstConsignment[firstConsignment.length - 1]);
+        firstConsignment.pop();
+      }
+      complete = true;
+    }
+  }
+
+  moves = (sumFirstConsignment - sumSecondConsignment);
+
+  return Math.abs(moves);
+}
+
+function betterCompression(s) {
+  const letters = s.split(/[0-9]/i);
+  const filteredLetters = letters.filter((letter) => letter !== "");
+  const numbers = s.split(/[a-z]/i);
+  const filteredNums = numbers.filter((num) => num !== "");
+  let obj = {};
+  for (let i = 0; i < filteredLetters.length; i += 1) {
+    if (obj[filteredLetters[i]]) {
+      obj[filteredLetters[i]] += Number(filteredNums[i])
+    } else {
+      obj[filteredLetters[i]] = Number(filteredNums[i])
+    }
+  }
+  const objEntries = Object.entries(obj);
+  const sortedEntries = objEntries.sort((a, b) => a[0].localeCompare(b[0]));
+  const concatenated = objEntries.map((entry) => entry.join("")).join("");
+  return sortedEntries;
+}
+
+console.log(betterCompression("a12c56a1b5"));

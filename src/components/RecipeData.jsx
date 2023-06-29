@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import copy from 'clipboard-copy';
+import Carousel from './Carousel';
 import filledCopyIcon from '../images/filledCopyIcon.png';
 import emptyCopyIcon from '../images/emptyCopyIcon.png';
 import filledFavoriteIcon from '../images/filledFavoriteIcon.png';
@@ -136,7 +137,7 @@ export default function RecipeData({
               <h3 className='subtitle'>Tutorial</h3>
               <iframe
                 title={ recipeData.strMeal }
-                src={ recipeData.strYoutube.replace('watch?v=', 'embed/') }
+                src={ recipeData.strYoutube && recipeData.strYoutube.replace('watch?v=', 'embed/') }
                 data-testid="video"
                 className='video'
               />
@@ -157,25 +158,9 @@ export default function RecipeData({
           )}
         </div>
       ))}
-      <div className="carousel-container">
-        {suggestions
-          && suggestions.map((suggestion, index) => {
-            if (index <= CAROUSEL_LIMIT) {
-              return (
-                <div key={ index } data-testid={ `${index}-recommendation-card` }>
-                  <img
-                    src={ suggestion.strMealThumb || suggestion.strDrinkThumb }
-                    alt={ suggestion.strMeal || suggestion.strDrink }
-                    className="carousel-img"
-                  />
-                  <p data-testid={ `${index}-recommendation-title` }>
-                    {suggestion.strMeal || suggestion.strDrink}
-                  </p>
-                </div>
-              );
-            }
-            return null;
-          })}
+      <div>
+      <h3 className='suggestion-subtitle'>Suggested {pathname.includes('meals') ? 'drinks' : 'meals'}</h3>
+      <Carousel suggestions={suggestions} CAROUSEL_LIMIT={CAROUSEL_LIMIT}/>
       </div>
       {type === 'details'
       && (
