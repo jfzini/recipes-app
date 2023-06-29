@@ -10,13 +10,14 @@
 
 body {
   font-family: Montserrat, sans-serif;
+  scroll-behavior: smooth;
 }
 
 :root {
-  --green: rgb(62, 196, 0);
-  --lightgreen: rgba(62, 196, 0, 0.75);
-  --orangered: rgb(252, 59, 0);
-  --lightorangered: rgba(252, 59, 0, 0.425);
+  --green: #3ec400;
+  --lightgreen: #3ec400bf;
+  --orangered: #fc3b00;
+  --lightorangered: #FDAB92;
 }
 
 ::-webkit-scrollbar {

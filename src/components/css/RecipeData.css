@@ -4,11 +4,12 @@
   background-image: url('../../images/seamless-pattern.webp');
   background-size: 100%;
   min-height: 100dvh;
+  padding-bottom: 5px;
 }
 
 .detail-hero {
   box-shadow: 0 0 4px var(--lightorangered);
-  height: max(15dvh, 130px);
+  height: 130px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -22,7 +23,7 @@
 .detail-title {
   color: white;
   font-family: Remains Stepping , sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   left: 10%;
   position: absolute;
@@ -48,13 +49,13 @@
 }
 
 .share-btn {
-  bottom: 5%;
   left: 5%;
+  top: 140px;
 }
 
 .favorite-btn {
-  bottom: 5%;
   right: 5%;
+  top: 140px;
 }
 
 .share-btn:hover, .favorite-btn:hover {
@@ -66,18 +67,17 @@
   width: 20px;
 }
 
-/* =============== GONNA NEED TO ADJUST WITH MEDIA QUERY =============== */
 .recipe-category {
   background-color: var(--orangered);
   border-radius: 5px;
   color: white;
   font-family: Remains Stepping , sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   position: absolute;
-  right: -15%;
+  right: -50px;
   text-align: center;
-  top: 15%;
+  top: 32px;
   transform: rotate(40deg);
   width: 200px;
 }
@@ -86,11 +86,19 @@
   padding: 20px;
 }
 
+.ingredients-list input {
+  margin-left: 10px;
+}
+
+.ingredients-list label {
+  line-height: 1.5rem;
+}
+
 .subtitle {
   font-family: Remains Stepping , sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin: 40px 0 20px;
 }
 
 li {
@@ -131,8 +139,8 @@ li::marker {
   font-family: Remains Stepping , sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  margin-bottom: 40px;
-  text-indent: 2rem;
+  margin-bottom: 10px;
+  padding: 20px;
 }
 
 .carousel-title {
@@ -155,10 +163,99 @@ li::marker {
   width: min(50dvw, 300px);
 }
 
+.swiper {
+  margin-bottom: 80px;
+}
+
 .swiper-slide {
   align-items: center;
   border-radius: 20px;
   box-shadow: 0 0 5px var(--lightorangered);
   display: flex;
   justify-content: center;
+}
+
+.start-recipe-btn {
+  background-color: var(--lightorangered);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 3px gray;
+  color: white;
+  cursor: pointer;
+  font-family: Montserrat , sans-serif;
+  font-weight: 700;
+  margin: 6px;
+  padding: 5px;
+  text-shadow: 0 0 3px black;
+  transition: all 0.2s ease-in-out;
+  width: 90px;
+  z-index: 1;
+}
+
+.start-recipe-btn:hover {
+  background-color: var(--orangered);
+  box-shadow: 0 0 3px var(--orangered);
+}
+
+input[ type = 'checkbox' ]:after {
+  background-color: rgb(231, 231, 231);
+  border: 2px solid white;
+  border-radius: 5px;
+  content: '';
+  display: inline-block;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
+}
+
+input[ type = 'checkbox' ]:checked:after {
+  background-color: var(--orangered);
+  border: 2px solid white;
+  color: white;
+  content: '-';
+  display: inline-block;
+  font-weight: 700;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  text-align: center;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
+}
+
+.finish-recipe-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.finish-recipe-btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 3px gray;
+  color: white;
+  cursor: pointer;
+  font-family: Montserrat , sans-serif;
+  font-weight: 700;
+  padding: 5px;
+  text-shadow: 0 0 3px black;
+  transition: all 0.2s ease-in-out;
+  width: 90px;
+  z-index: 1;
+}
+
+.finish-recipe-btn:disabled {
+  background-color: lightgray;
+}
+
+.finish-recipe-btn:enabled {
+  background-color: var(--lightorangered);
+}
+
+.finish-recipe-btn:enabled:hover {
+  background-color: var(--orangered);
 }

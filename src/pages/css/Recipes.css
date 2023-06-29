@@ -47,11 +47,11 @@
   font-weight: 700;
 }
 
-.inactive-filter {
+/* .inactive-filter {
   background-color: rgb(231, 231, 231);
   box-shadow: none;
-  color: gray;
-}
+  color: white;
+} */
 
 .recipes-container {
   display: flex;
