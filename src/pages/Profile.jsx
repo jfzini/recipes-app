@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './css/Profile.css';
 
 export default function Profile() {
   const [email, setEmail] = useState();
@@ -24,27 +25,39 @@ export default function Profile() {
   });
 
   return (
-    <div>
+    <div className='detail-page-container'>
       <Header />
-      { email && <p data-testid="profile-email">{email}</p> }
-      <button
-        data-testid="profile-done-btn"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        Done Recipes
-      </button>
-      <button
-        data-testid="profile-favorite-btn"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
-      <button
-        data-testid="profile-logout-btn"
-        onClick={ () => clearLocalStorage() }
-      >
-        Logout
-      </button>
+      { email && 
+        <p
+          data-testid="profile-email"
+          className='user-email'
+        >
+          {email}
+        </p>
+      }
+      <section className='profile-link-container'>
+        <button
+          data-testid="profile-done-btn"
+          className='filter-button'
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
+        <button
+          data-testid="profile-favorite-btn"
+          className='filter-button'
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
+        <button
+          data-testid="profile-logout-btn"
+          className='filter-button active-filter'
+          onClick={ () => clearLocalStorage() }
+        >
+          Logout
+        </button>
+      </section>
       <Footer />
     </div>
   );

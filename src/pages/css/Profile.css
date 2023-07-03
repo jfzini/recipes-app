@@ -1,0 +1,14 @@
+.profile-link-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50dvh;
+  justify-content: space-around;
+}
+
+.user-email {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 40px;
+  text-align: center;
+}
