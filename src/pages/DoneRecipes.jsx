@@ -5,6 +5,7 @@ import emptyCopyIcon from '../images/emptyCopyIcon.png';
 import filledCopyIcon from '../images/filledCopyIcon.png';
 import Header from '../components/Header';
 import './css/DoneRecipes.css';
+import Footer from '../components/Footer';
 
 export default function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -83,7 +84,11 @@ export default function DoneRecipes() {
                   onClick={() => clipboardUrl(recipe.type, recipe.id)}
                   className='done-share-btn'
                 >
-                  <img src={recipe.id === linkCopied ? filledCopyIcon : emptyCopyIcon} alt="share" className='detail-icons'/>
+                  <img
+                    src={recipe.id === linkCopied ? filledCopyIcon : emptyCopyIcon}
+                    alt="share"
+                    className='detail-icons'
+                  />
                 </button>
                 <div
                   onClick={() => history.push(`/${recipe.type}s/${recipe.id}`)}
@@ -114,6 +119,7 @@ export default function DoneRecipes() {
             </div>
           ))}
       </section>
+      <Footer />
     </div>
   );
 }

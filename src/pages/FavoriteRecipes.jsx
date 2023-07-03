@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
+import emptyCopyIcon from '../images/emptyCopyIcon.png';
+import filledCopyIcon from '../images/filledCopyIcon.png';
 import Header from '../components/Header';
-import blackFavoriteIcon from '../images/blackHeartIcon.svg';
+import filledFavoriteIcon from '../images/filledFavoriteIcon.png';
 import './css/DoneRecipes.css';
+import './css/FavoriteRecipes.css'
+import Footer from '../components/Footer';
 
 export default function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [linksCopied, setLinksCopied] = useState('');
+  const [activeFilter, setActiveFilter] = useState('');
   const history = useHistory();
 
   const removeFavorite = (id) => {
@@ -33,10 +37,10 @@ export default function FavoriteRecipes() {
       setFavoriteRecipes(doneRecipesStorage);
     } else {
       const doneRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const filteredRecipes = doneRecipesStorage
-        .filter((recipe) => recipe.type === filter);
+      const filteredRecipes = doneRecipesStorage.filter((recipe) => recipe.type === filter);
       setFavoriteRecipes(filteredRecipes);
     }
+    setActiveFilter(filter);
   };
 
   useEffect(() => {
@@ -45,74 +49,90 @@ export default function FavoriteRecipes() {
   }, []);
 
   return (
-    <div>
+    <div className="detail-page-container">
       <Header />
-      <section>
+      <section className="filters-container">
         <button
           data-testid="filter-by-all-btn"
-          onClick={ () => handleFilter('all') }
+          onClick={() => handleFilter('all')}
+          className={
+            activeFilter === 'all' || activeFilter === ''
+              ? 'filter-button active-filter'
+              : 'filter-button inactive-filter'
+          }
         >
           All
         </button>
         <button
           data-testid="filter-by-meal-btn"
-          onClick={ () => handleFilter('meal') }
+          onClick={() => handleFilter('meal')}
+          className={
+            activeFilter === 'meal'
+              ? 'filter-button active-filter'
+              : 'filter-button inactive-filter'
+          }
         >
           Meals
         </button>
         <button
           data-testid="filter-by-drink-btn"
-          onClick={ () => handleFilter('drink') }
+          onClick={() => handleFilter('drink')}
+          className={
+            activeFilter === 'drink'
+              ? 'filter-button active-filter'
+              : 'filter-button inactive-filter'
+          }
         >
           Drinks
         </button>
-
-        {favoriteRecipes && favoriteRecipes.map((recipe, index) => (
-          <div key={ index }>
-            <button onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }>
-              <img
-                className="done-recipe-image"
-                data-testid={ `${index}-horizontal-image` }
-                src={ recipe.image }
-                alt={ recipe.name }
-              />
-            </button>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {recipe.type === 'meal'
-                ? `${recipe.nationality} - ${recipe.category}`
-                : recipe.alcoholicOrNot}
-            </p>
-            <button
-              onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
-              data-testid={ `${index}-horizontal-name-button` }
-            >
-              <p
-                data-testid={ `${index}-horizontal-name` }
-              >
-                {recipe.name}
-              </p>
-
-            </button>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-
-            <button
-              data-testid={ `${index}-horizontal-share-btn` }
-              onClick={ () => clipboardUrl(recipe.type, recipe.id) }
-              src={ shareIcon }
-            >
-              <img src={ shareIcon } alt="share" />
-            </button>
-            <button onClick={ () => removeFavorite(recipe.id) }>
-              <img
-                src={ blackFavoriteIcon }
-                alt="favorite icon"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-              />
-            </button>
-            {linksCopied === recipe.id && <span>Link copied!</span>}
-          </div>
-        ))}
-
+      </section>
+      <section className="recipes-container">
+        {favoriteRecipes &&
+          favoriteRecipes.map((recipe, index) => (
+            <div className='favorite-container'>
+              <div className="recipe-card" key={index}>
+                <div
+                  onClick={() => history.push(`/${recipe.type}s/${recipe.id}`)}
+                  className="recipe-image-container"
+                >
+                  <img
+                    className="recipe-image"
+                    data-testid={`${index}-horizontal-image`}
+                    src={recipe.image}
+                    alt={recipe.name}
+                  />
+                </div>
+                <p data-testid={`${index}-horizontal-top-text`} className="recipe-name">
+                  {recipe.name}
+                </p>
+              </div>
+              <div>
+                <button
+                  data-testid={`${index}-horizontal-share-btn`}
+                  onClick={() => clipboardUrl(recipe.type, recipe.id)}
+                  className='done-share-btn'
+                >
+                  <img
+                    src={linksCopied === recipe.id ? filledCopyIcon : emptyCopyIcon}
+                    alt="share"
+                    className='detail-icons'
+                  />
+                </button>
+                <button
+                  onClick={() => removeFavorite(recipe.id)}
+                  className='favorite-btn'
+                >
+                  <img
+                    src={filledFavoriteIcon}
+                    alt="favorite icon"
+                    className='detail-icons'
+                    data-testid={`${index}-horizontal-favorite-btn`}
+                  />
+                </button>
+              </div>
+            </div>
+          ))}
+          <Footer />
       </section>
     </div>
   );

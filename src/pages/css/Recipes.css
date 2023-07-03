@@ -15,7 +15,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-block: 10px;
-  width: min(100%, 600px);
+  width: 100%;
 }
 
 .filter-button {

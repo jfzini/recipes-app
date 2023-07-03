@@ -128,7 +128,7 @@ export default function Recipes() {
           aria-label="Loading Spinner"
           data-testid="loader"
         /> : 
-      <div className='recipes-container'>
+      <section className='recipes-container'>
         {recipes && recipes.length >= 1
           ? recipes.map((recipe, index) => {
               if (index <= RECIPES_LIMIT) {
@@ -169,7 +169,7 @@ export default function Recipes() {
               return '';
             })
           : ''}
-      </div>
+      </section>
       }
       {loadingFilters && loadingRecipes ? '' : <Footer />}
     </div>

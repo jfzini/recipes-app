@@ -52,9 +52,10 @@ export default function Header() {
         </button>
         <h1
           data-testid="page-title"
-          className={headerData.title === "Done Recipes"
-            ? "header-title done-recipes-title"
-            : "header-title"}
+          className={headerData.title === "Done Recipes" 
+            || headerData.title === "Favorite Recipes"
+              ? "header-title done-recipes-title"
+              : "header-title"}
         >
           {headerData.title}
         </h1>

@@ -37,6 +37,10 @@
   z-index: 2;
 }
 
+.done-share-btn:hover {
+  box-shadow: 0 0 5px var(--orangered) , 0 0 5px var(--orangered);
+}
+
 .done-recipe-image {
   width: 300px;
 }
