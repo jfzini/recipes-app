@@ -50,28 +50,35 @@ export default function Header() {
             className='header-img'
           />
         </button>
-        <h1 data-testid="page-title" className="header-title">
+        <h1
+          data-testid="page-title"
+          className={headerData.title === "Done Recipes"
+            ? "header-title done-recipes-title"
+            : "header-title"}
+        >
           {headerData.title}
         </h1>
-        {headerData.renderSearchIcon && (
-          <button
-            type="button"
-            className={headerData.showSearchBar ? 'search-icon' : ''}
-            onClick={() =>
-              setHeaderData({
-                ...headerData,
-                showSearchBar: !headerData.showSearchBar,
-              })
-            }
-          >
-            <img
-              src={searchIcon}
-              alt="search-icon"
-              data-testid="search-top-btn"
-              className='header-img'
-            />
-          </button>
-        )}
+        <div>
+          {headerData.renderSearchIcon && (
+            <button
+              type="button"
+              className={headerData.showSearchBar ? 'search-icon' : ''}
+              onClick={() =>
+                setHeaderData({
+                  ...headerData,
+                  showSearchBar: !headerData.showSearchBar,
+                })
+              }
+            >
+              <img
+                src={searchIcon}
+                alt="search-icon"
+                data-testid="search-top-btn"
+                className='header-img'
+              />
+            </button>
+          )}
+        </div>
       </div>
       {headerData.showSearchBar && <SearchBar />}
     </div>

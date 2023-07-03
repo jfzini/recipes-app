@@ -151,7 +151,7 @@ export default function RecipeData({
                   onClick={() => finishRecipe(recipeData)}
                   className="finish-recipe-btn"
                 >
-                  Finalizar receita
+                  Finish Recipe
                 </button>
               </div>
             )}

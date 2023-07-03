@@ -1,3 +1,42 @@
+.done-recipe-container {
+  border-bottom: 2px solid rgb(182, 182, 182);
+  display: flex;
+}
+
+.done-recipe-data {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 0 6px gray;
+  display: flex;
+  flex-wrap: wrap;
+  height: min(40dvw, 300px);
+  margin: 20px 10px;
+  overflow: hidden;
+  position: relative;
+  width: min(40dvw, 300px);
+}
+
+.done-recipe-info {
+  border-radius: 0 0 20px 20px;
+  color: var(--lightorangered);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.done-share-btn {
+  background-color: white;
+  border: 2px solid var(--lightorangered);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 8px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+}
+
 .done-recipe-image {
   width: 300px;
 }
