@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import copy from 'clipboard-copy';
 import Carousel from './Carousel';
@@ -26,14 +26,17 @@ export default function RecipeData({
   const history = useHistory();
   const { pathname } = history.location;
   const CAROUSEL_LIMIT = 5;
+  const TIME_LIMIT = 10000;
 
   const handleCopy = (path, recipeID) => {
-    const filteredPathname = path.includes('in-progress') ? path.replace('/in-progress', '') : path;
+    const filteredPathname = path.includes('in-progress')
+      ? path.replace('/in-progress', '')
+      : path;
     copy(`http://localhost:3000${filteredPathname}`);
     setLinkCopied(recipeID);
     setTimeout(() => {
       setLinkCopied('');
-    }, 10000);
+    }, TIME_LIMIT);
   };
 
   return (
@@ -52,7 +55,9 @@ export default function RecipeData({
                 className="detail-img"
               />
               <p data-testid="recipe-category" className="recipe-category">
-                {pathname.includes('/meals') ? recipeData.strCategory : recipeData.strAlcoholic}
+                {pathname.includes('/meals')
+                  ? recipeData.strCategory
+                  : recipeData.strAlcoholic}
               </p>
             </div>
             <button
@@ -106,7 +111,9 @@ export default function RecipeData({
                           <input
                             type="checkbox"
                             id={ `${index}-ingredient-checkbox` }
-                            onChange={ () => handleUsedIngredients(recipeData[ingredient]) }
+                            onChange={
+                              () => handleUsedIngredients(recipeData[ingredient])
+                            }
                             checked={ usedIngredients.includes(recipeData[ingredient]) }
                           />
                         </label>
@@ -114,7 +121,10 @@ export default function RecipeData({
                     );
                   }
                   return (
-                    <li data-testid={ `${index}-ingredient-name-and-measure` } key={ `${index}-li` }>
+                    <li
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                      key={ `${index}-li` }
+                    >
                       {recipeData[ingredient]}
                       {' - '}
                       {recipeData[ingredient.replace('strIngredient', 'strMeasure')]}
@@ -133,7 +143,8 @@ export default function RecipeData({
                 <h3 className="subtitle">Tutorial</h3>
                 <iframe
                   title={ recipeData.strMeal }
-                  src={ recipeData.strYoutube && recipeData.strYoutube.replace('watch?v=', 'embed/') }
+                  src={ recipeData.strYoutube
+                      && recipeData.strYoutube.replace('watch?v=', 'embed/') }
                   data-testid="video"
                   className="video"
                 />

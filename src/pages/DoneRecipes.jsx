@@ -33,10 +33,18 @@ export default function DoneRecipes() {
       setDoneRecipes(doneRecipesStorage);
     } else {
       const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-      const filteredRecipes = doneRecipesStorage.filter((recipe) => recipe.type === filter);
+      const filteredRecipes = doneRecipesStorage
+        .filter((recipe) => recipe.type === filter);
       setDoneRecipes(filteredRecipes);
     }
     setActiveFilter(filter);
+  };
+
+  const setButtonClass = (type) => {
+    if (activeFilter === type) {
+      return 'filter-button active-filter';
+    }
+    return 'filter-button inactive-filter';
   };
 
   return (
@@ -45,27 +53,21 @@ export default function DoneRecipes() {
       <section className="filters-container">
         <button
           data-testid="filter-by-all-btn"
-          className={ activeFilter === 'all' || activeFilter === ''
-            ? 'filter-button active-filter'
-            : 'filter-button inactive-filter' }
+          className={ setButtonClass('all') }
           onClick={ () => handleFilter('all') }
         >
           All
         </button>
         <button
           data-testid="filter-by-meal-btn"
-          className={ activeFilter === 'meal'
-            ? 'filter-button active-filter'
-            : 'filter-button inactive-filter' }
+          className={ setButtonClass('meal') }
           onClick={ () => handleFilter('meal') }
         >
           Meals
         </button>
         <button
           data-testid="filter-by-drink-btn"
-          className={ activeFilter === 'drink'
-            ? 'filter-button active-filter'
-            : 'filter-button inactive-filter' }
+          className={ setButtonClass('drink') }
           onClick={ () => handleFilter('drink') }
         >
           Drinks
@@ -74,7 +76,7 @@ export default function DoneRecipes() {
       <section className="recipes-container">
         {doneRecipes
           && doneRecipes.map((recipe, index) => (
-            <div className="done-recipe-container">
+            <div className="done-recipe-container" key={ `done-recipe-${index}` }>
               <div key={ index } className="recipe-card">
                 <button
                   data-testid={ `${index}-horizontal-share-btn` }
@@ -87,7 +89,7 @@ export default function DoneRecipes() {
                     className="detail-icons"
                   />
                 </button>
-                <div
+                <button
                   onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
                   className="recipe-image-container"
                 >
@@ -97,7 +99,7 @@ export default function DoneRecipes() {
                     src={ recipe.image }
                     alt={ recipe.name }
                   />
-                </div>
+                </button>
                 <p data-testid={ `${index}-horizontal-top-text` } className="recipe-name">
                   {recipe.name}
                 </p>

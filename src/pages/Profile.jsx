@@ -28,12 +28,14 @@ export default function Profile() {
     <div className="detail-page-container">
       <Header />
       { email
-        && <p
-          data-testid="profile-email"
-          className="user-email"
-        >
-          {email}
-           </p>}
+        && (
+          <p
+            data-testid="profile-email"
+            className="user-email"
+          >
+            {email}
+          </p>
+        )}
       <section className="profile-link-container">
         <button
           data-testid="profile-done-btn"

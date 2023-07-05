@@ -19,13 +19,7 @@ export default function SearchBar() {
 
   const checkFilters = () => {
     const { input, filter } = filters;
-    if (filter === 'firstLetter' && input.length > 1) {
-      return true;
-    }
-    if (input && filter) {
-      return false;
-    }
-    return true;
+    return (filter === 'firstLetter' && input.length > 1) || !(input && filter);
   };
 
   useEffect(() => {

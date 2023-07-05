@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 export default function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [linksCopied, setLinksCopied] = useState('');
-  const [activeFilter, setActiveFilter] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
   const history = useHistory();
 
   const removeFavorite = (id) => {
@@ -37,10 +37,18 @@ export default function FavoriteRecipes() {
       setFavoriteRecipes(doneRecipesStorage);
     } else {
       const doneRecipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const filteredRecipes = doneRecipesStorage.filter((recipe) => recipe.type === filter);
+      const filteredRecipes = doneRecipesStorage
+        .filter((recipe) => recipe.type === filter);
       setFavoriteRecipes(filteredRecipes);
     }
     setActiveFilter(filter);
+  };
+
+  const setButtonClass = (type) => {
+    if (activeFilter === type) {
+      return 'filter-button active-filter';
+    }
+    return 'filter-button inactive-filter';
   };
 
   useEffect(() => {
@@ -55,33 +63,21 @@ export default function FavoriteRecipes() {
         <button
           data-testid="filter-by-all-btn"
           onClick={ () => handleFilter('all') }
-          className={
-            activeFilter === 'all' || activeFilter === ''
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-          }
+          className={ setButtonClass('all') }
         >
           All
         </button>
         <button
           data-testid="filter-by-meal-btn"
           onClick={ () => handleFilter('meal') }
-          className={
-            activeFilter === 'meal'
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-          }
+          className={ setButtonClass('meal') }
         >
           Meals
         </button>
         <button
           data-testid="filter-by-drink-btn"
           onClick={ () => handleFilter('drink') }
-          className={
-            activeFilter === 'drink'
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-          }
+          className={ setButtonClass('drink') }
         >
           Drinks
         </button>
@@ -89,9 +85,9 @@ export default function FavoriteRecipes() {
       <section className="recipes-container">
         {favoriteRecipes
           && favoriteRecipes.map((recipe, index) => (
-            <div className="favorite-container">
+            <div className="favorite-container" key={ `recipe-${index}` }>
               <div className="recipe-card" key={ index }>
-                <div
+                <button
                   onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
                   className="recipe-image-container"
                 >
@@ -101,7 +97,7 @@ export default function FavoriteRecipes() {
                     src={ recipe.image }
                     alt={ recipe.name }
                   />
-                </div>
+                </button>
                 <p data-testid={ `${index}-horizontal-top-text` } className="recipe-name">
                   {recipe.name}
                 </p>
