@@ -62,6 +62,8 @@
 
 .recipe-card {
   animation: appear 0.7s ease-in-out;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
   margin: 20px 10px;
   position: relative;
@@ -69,6 +71,7 @@
 
 .recipe-image-container {
   background-color: transparent;
+  border: none;
   border-radius: 20px;
   box-shadow: 2px 2px 3px gray;
   height: min(40dvw, 300px);
