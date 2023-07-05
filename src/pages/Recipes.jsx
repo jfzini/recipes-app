@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { PropagateLoader } from 'react-spinners';
 import Header from '../components/Header';
 import RecipesContext from '../context/Context';
 import Footer from '../components/Footer';
 import './css/Recipes.css';
-import { PropagateLoader } from 'react-spinners';
 
 export default function Recipes() {
-  const { recipes, renderInitialRecipes, filters, renderFilters, renderFilteredRecipes } =
-    useContext(RecipesContext);
+  const {
+    recipes,
+    renderInitialRecipes,
+    filters,
+    renderFilters,
+    renderFilteredRecipes,
+  } = useContext(RecipesContext);
   const [activeFilter, setActiveFilter] = useState('');
   const [loadingRecipes, setLoadingRecipes] = useState(true);
   const [loadingFilters, setLoadingFilters] = useState(true);
@@ -16,6 +21,8 @@ export default function Recipes() {
   const { pathname } = history.location;
   const RECIPES_LIMIT = 11;
   const FILTERS_LIMIT = 4;
+  const STRING_LIMIT = 24;
+  const RENDERING_TIME = 300;
 
   useEffect(() => {
     async function fetchUpdatedFilters() {
@@ -23,7 +30,7 @@ export default function Recipes() {
       await renderFilters(pathname);
       setTimeout(() => {
         setLoadingFilters(false);
-      }, 300);
+      }, RENDERING_TIME);
     }
     fetchUpdatedFilters();
   }, [pathname]);
@@ -68,9 +75,9 @@ export default function Recipes() {
     <div className="recipe-page-container">
       <Header />
       {loadingFilters ? (
-        <PropagateLoader 
+        <PropagateLoader
           color="rgba(252, 59, 0, 0.425)"
-          size={10}
+          size={ 10 }
           aria-label="Loading Spinner"
           data-testid="loader"
         />
@@ -79,98 +86,98 @@ export default function Recipes() {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={() => {
+            onClick={ () => {
               renderInitialRecipes(pathname);
               setActiveFilter('');
-            }}
-            className={ activeFilter === ''
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
+            } }
+            className={
+              activeFilter === ''
+                ? 'filter-button active-filter'
+                : 'filter-button inactive-filter'
             }
           >
             All
           </button>
           {filters && filters.length > 1
             ? filters.map((filter, index) => {
-                if (index <= FILTERS_LIMIT) {
-                  return (
-                    <button
-                      type="button"
-                      key={index}
-                      className={checkFilters(filter.strCategory)}
-                      data-testid={`${filter.strCategory}-category-filter`}
-                      onClick={async () => {
-                        if (activeFilter === filter.strCategory) {
-                          setActiveFilter('');
-                          setLoadingRecipes(true);
-                          await renderInitialRecipes(pathname);
-                          setLoadingRecipes(false);
-                        } else {
-                          setActiveFilter(filter.strCategory);
-                          setLoadingRecipes(true);
-                          await renderFilteredRecipes(pathname, filter.strCategory);
-                          setLoadingRecipes(false);
-                        }
-                      }}
-                    >
-                      {filter.strCategory}
-                    </button>
-                  );
-                }
-                return '';
-              })
+              if (index <= FILTERS_LIMIT) {
+                return (
+                  <button
+                    type="button"
+                    key={ index }
+                    className={ checkFilters(filter.strCategory) }
+                    data-testid={ `${filter.strCategory}-category-filter` }
+                    onClick={ async () => {
+                      if (activeFilter === filter.strCategory) {
+                        setActiveFilter('');
+                        setLoadingRecipes(true);
+                        await renderInitialRecipes(pathname);
+                        setLoadingRecipes(false);
+                      } else {
+                        setActiveFilter(filter.strCategory);
+                        setLoadingRecipes(true);
+                        await renderFilteredRecipes(pathname, filter.strCategory);
+                        setLoadingRecipes(false);
+                      }
+                    } }
+                  >
+                    {filter.strCategory}
+                  </button>
+                );
+              }
+              return '';
+            })
             : ''}
         </div>
       )}
-      {loadingRecipes ? <PropagateLoader 
+      {loadingRecipes ? (
+        <PropagateLoader
           color="rgba(252, 59, 0, 0.425)"
-          size={10}
+          size={ 10 }
           aria-label="Loading Spinner"
           data-testid="loader"
-        /> : 
-      <section className='recipes-container'>
-        {recipes && recipes.length >= 1
-          ? recipes.map((recipe, index) => {
+        />
+      ) : (
+        <section className="recipes-container">
+          {recipes && recipes.length >= 1
+            ? recipes.map((recipe, index) => {
               if (index <= RECIPES_LIMIT) {
                 return (
-                  <div
-                    data-testid={`${index}-recipe-card`}
-                    key={recipe.idDrink || recipe.idMeal}
+                  <button
+                    data-testid={ `${index}-recipe-card` }
+                    key={ recipe.idDrink || recipe.idMeal }
                     className="recipe-card"
-                    onClick={() => {
+                    onClick={ () => {
                       if (recipe.idDrink) {
                         handleDetail(recipe.idDrink);
                       }
                       if (recipe.idMeal) {
                         handleDetail(recipe.idMeal);
                       }
-                    }}
+                    } }
                   >
                     <div
-                      data-testid={`${index}-recipe-button`}
-                      className='recipe-image-container'
+                      data-testid={ `${index}-recipe-button` }
+                      className="recipe-image-container"
                     >
                       <img
-                        src={recipe.strDrinkThumb || recipe.strMealThumb}
-                        alt={recipe.strDrink || recipe.strMeal}
-                        data-testid={`${index}-card-img`}
-                        className='recipe-image'
+                        src={ recipe.strDrinkThumb || recipe.strMealThumb }
+                        alt={ recipe.strDrink || recipe.strMeal }
+                        data-testid={ `${index}-card-img` }
+                        className="recipe-image"
                       />
                     </div>
-                    <p
-                      data-testid={`${index}-card-name`}
-                      className='recipe-name'
-                    >
-                      {(recipe.strDrink || recipe.strMeal).slice(0, 24)}
+                    <p data-testid={ `${index}-card-name` } className="recipe-name">
+                      {(recipe.strDrink || recipe.strMeal).slice(0, STRING_LIMIT)}
                     </p>
-                  </div>
+                  </button>
                 );
               }
               return '';
             })
-          : ''}
-      </section>
-      }
+            : ''}
+        </section>
+      )}
       {loadingFilters && loadingRecipes ? '' : <Footer />}
     </div>
   );

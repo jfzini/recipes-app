@@ -46,74 +46,75 @@ export default function DoneRecipes() {
         <button
           data-testid="filter-by-all-btn"
           className={ activeFilter === 'all' || activeFilter === ''
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-            }
-          onClick={() => handleFilter('all')}
+            ? 'filter-button active-filter'
+            : 'filter-button inactive-filter' }
+          onClick={ () => handleFilter('all') }
         >
           All
         </button>
         <button
           data-testid="filter-by-meal-btn"
           className={ activeFilter === 'meal'
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-            }
-          onClick={() => handleFilter('meal')}
+            ? 'filter-button active-filter'
+            : 'filter-button inactive-filter' }
+          onClick={ () => handleFilter('meal') }
         >
           Meals
         </button>
         <button
           data-testid="filter-by-drink-btn"
           className={ activeFilter === 'drink'
-              ? 'filter-button active-filter'
-              : 'filter-button inactive-filter'
-            }
-          onClick={() => handleFilter('drink')}
+            ? 'filter-button active-filter'
+            : 'filter-button inactive-filter' }
+          onClick={ () => handleFilter('drink') }
         >
           Drinks
         </button>
       </section>
       <section className="recipes-container">
-        {doneRecipes &&
-          doneRecipes.map((recipe, index) => (
-            <div className='done-recipe-container'>
-              <div key={index} className="recipe-card">
+        {doneRecipes
+          && doneRecipes.map((recipe, index) => (
+            <div className="done-recipe-container">
+              <div key={ index } className="recipe-card">
                 <button
-                  data-testid={`${index}-horizontal-share-btn`}
-                  onClick={() => clipboardUrl(recipe.type, recipe.id)}
-                  className='done-share-btn'
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  onClick={ () => clipboardUrl(recipe.type, recipe.id) }
+                  className="done-share-btn"
                 >
                   <img
-                    src={recipe.id === linkCopied ? filledCopyIcon : emptyCopyIcon}
+                    src={ recipe.id === linkCopied ? filledCopyIcon : emptyCopyIcon }
                     alt="share"
-                    className='detail-icons'
+                    className="detail-icons"
                   />
                 </button>
                 <div
-                  onClick={() => history.push(`/${recipe.type}s/${recipe.id}`)}
+                  onClick={ () => history.push(`/${recipe.type}s/${recipe.id}`) }
                   className="recipe-image-container"
                 >
                   <img
                     className="recipe-image"
-                    data-testid={`${index}-horizontal-image`}
-                    src={recipe.image}
-                    alt={recipe.name}
+                    data-testid={ `${index}-horizontal-image` }
+                    src={ recipe.image }
+                    alt={ recipe.name }
                   />
                 </div>
-                <p data-testid={`${index}-horizontal-top-text`} className="recipe-name">
+                <p data-testid={ `${index}-horizontal-top-text` } className="recipe-name">
                   {recipe.name}
                 </p>
               </div>
-              <div className='done-recipe-data'>
+              <div className="done-recipe-data">
                 <p
-                  data-testid={`${index}-horizontal-done-date`}
+                  data-testid={ `${index}-horizontal-done-date` }
                   className="done-recipe-info"
                 >
-                  Recipe done in: {recipe.doneDate}
+                  Recipe done in:
+                  {' '}
+                  {recipe.doneDate}
                 </p>
-                <p className='done-recipe-info'>
-                  Category: {recipe.category}
+                <p className="done-recipe-info">
+                  Category:
+                  {' '}
+                  {recipe.category}
                 </p>
               </div>
             </div>

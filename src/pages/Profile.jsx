@@ -25,34 +25,33 @@ export default function Profile() {
   });
 
   return (
-    <div className='detail-page-container'>
+    <div className="detail-page-container">
       <Header />
-      { email && 
-        <p
+      { email
+        && <p
           data-testid="profile-email"
-          className='user-email'
+          className="user-email"
         >
           {email}
-        </p>
-      }
-      <section className='profile-link-container'>
+           </p>}
+      <section className="profile-link-container">
         <button
           data-testid="profile-done-btn"
-          className='filter-button'
+          className="filter-button"
           onClick={ () => history.push('/done-recipes') }
         >
           Done Recipes
         </button>
         <button
           data-testid="profile-favorite-btn"
-          className='filter-button'
+          className="filter-button"
           onClick={ () => history.push('/favorite-recipes') }
         >
           Favorite Recipes
         </button>
         <button
           data-testid="profile-logout-btn"
-          className='filter-button active-filter'
+          className="filter-button active-filter"
           onClick={ () => clearLocalStorage() }
         >
           Logout

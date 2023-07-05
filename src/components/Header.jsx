@@ -17,45 +17,45 @@ export default function Header() {
 
   useEffect(() => {
     switch (pathname) {
-      case '/drinks':
-        setHeaderData({ ...headerData, title: 'Drinks' });
-        break;
-      case '/profile':
-        setHeaderData({ ...headerData, title: 'Profile', renderSearchIcon: false });
-        break;
-      case '/done-recipes':
-        setHeaderData({ ...headerData, title: 'Done Recipes', renderSearchIcon: false });
-        break;
-      case '/favorite-recipes':
-        setHeaderData({
-          ...headerData,
-          title: 'Favorite Recipes',
-          renderSearchIcon: false,
-        });
-        break;
-      default:
-        setHeaderData({ ...headerData, title: 'Meals' });
-        break;
+    case '/drinks':
+      setHeaderData({ ...headerData, title: 'Drinks' });
+      break;
+    case '/profile':
+      setHeaderData({ ...headerData, title: 'Profile', renderSearchIcon: false });
+      break;
+    case '/done-recipes':
+      setHeaderData({ ...headerData, title: 'Done Recipes', renderSearchIcon: false });
+      break;
+    case '/favorite-recipes':
+      setHeaderData({
+        ...headerData,
+        title: 'Favorite Recipes',
+        renderSearchIcon: false,
+      });
+      break;
+    default:
+      setHeaderData({ ...headerData, title: 'Meals' });
+      break;
     }
   }, [pathname]);
 
   return (
-    <div className='header-container'>
+    <div className="header-container">
       <div className="icons-container">
-        <button onClick={() => history.push('/profile')}>
+        <button onClick={ () => history.push('/profile') }>
           <img
-            src={profileIcon}
+            src={ profileIcon }
             alt="profile-icon"
             data-testid="profile-top-btn"
-            className='header-img'
+            className="header-img"
           />
         </button>
         <h1
           data-testid="page-title"
-          className={headerData.title === "Done Recipes" 
-            || headerData.title === "Favorite Recipes"
-              ? "header-title done-recipes-title"
-              : "header-title"}
+          className={ headerData.title === 'Done Recipes'
+            || headerData.title === 'Favorite Recipes'
+            ? 'header-title done-recipes-title'
+            : 'header-title' }
         >
           {headerData.title}
         </h1>
@@ -63,19 +63,17 @@ export default function Header() {
           {headerData.renderSearchIcon && (
             <button
               type="button"
-              className={headerData.showSearchBar ? 'search-icon' : ''}
-              onClick={() =>
-                setHeaderData({
-                  ...headerData,
-                  showSearchBar: !headerData.showSearchBar,
-                })
-              }
+              className={ headerData.showSearchBar ? 'search-icon' : '' }
+              onClick={ () => setHeaderData({
+                ...headerData,
+                showSearchBar: !headerData.showSearchBar,
+              }) }
             >
               <img
-                src={searchIcon}
+                src={ searchIcon }
                 alt="search-icon"
                 data-testid="search-top-btn"
-                className='header-img'
+                className="header-img"
               />
             </button>
           )}

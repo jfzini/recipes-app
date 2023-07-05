@@ -28,8 +28,8 @@ export default function Login() {
   }, [user]);
 
   return (
-    <div className='page-container'>
-      <form className={isValid ? 'login-form valid-form' : 'login-form'}>
+    <div className="page-container">
+      <form className={ isValid ? 'login-form valid-form' : 'login-form' }>
         <h1>Good Cooking</h1>
         <input
           type="email"
@@ -38,7 +38,7 @@ export default function Login() {
           data-testid="email-input"
           value={ user.email }
           onChange={ handleChange }
-          placeholder='email@email.com'
+          placeholder="email@email.com"
         />
         <input
           type="password"
@@ -48,7 +48,7 @@ export default function Login() {
           value={ user.password }
           onChange={ handleChange }
           onKeyDown={ (e) => e.key === 'Enter' && handleSubmit() }
-          placeholder='password (min. 7 chars)'
+          placeholder="password (min. 7 chars)"
         />
         <button
           type="button"

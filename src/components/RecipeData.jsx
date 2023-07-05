@@ -38,16 +38,16 @@ export default function RecipeData({
 
   return (
     <div className="detail-page-container">
-      {recipe &&
-        recipe.map((recipeData) => (
-          <div key={id}>
+      {recipe
+        && recipe.map((recipeData) => (
+          <div key={ id }>
             <div className="detail-hero">
               <h2 data-testid="recipe-title" className="detail-title">
                 {recipeData.strMeal || recipeData.strDrink}
               </h2>
               <img
-                src={recipeData.strMealThumb || recipeData.strDrinkThumb}
-                alt={recipeData.strMeal || recipeData.strDrink}
+                src={ recipeData.strMealThumb || recipeData.strDrinkThumb }
+                alt={ recipeData.strMeal || recipeData.strDrink }
                 data-testid="recipe-photo"
                 className="detail-img"
               />
@@ -57,26 +57,26 @@ export default function RecipeData({
             </div>
             <button
               data-testid="share-btn"
-              onClick={() => handleCopy(pathname, id)}
+              onClick={ () => handleCopy(pathname, id) }
               className="share-btn"
             >
               <img
-                src={linkCopied === id ? filledCopyIcon : emptyCopyIcon}
+                src={ linkCopied === id ? filledCopyIcon : emptyCopyIcon }
                 alt="share icon"
                 className="detail-icons"
               />
             </button>
-            <button onClick={handleFavorites} className="favorite-btn">
+            <button onClick={ handleFavorites } className="favorite-btn">
               {favorite ? (
                 <img
-                  src={filledFavoriteIcon}
+                  src={ filledFavoriteIcon }
                   alt="favorite icon"
                   data-testid="favorite-btn"
                   className="detail-icons"
                 />
               ) : (
                 <img
-                  src={emptyFavoriteIcon}
+                  src={ emptyFavoriteIcon }
                   alt="favorite icon"
                   data-testid="favorite-btn"
                   className="detail-icons"
@@ -90,10 +90,10 @@ export default function RecipeData({
                 .map((ingredient, index) => {
                   if (type === 'progress') {
                     return (
-                      <div key={index}>
+                      <div key={ index }>
                         <label
-                          htmlFor={`${index}-ingredient-checkbox`}
-                          data-testid={`${index}-ingredient-step`}
+                          htmlFor={ `${index}-ingredient-checkbox` }
+                          data-testid={ `${index}-ingredient-step` }
                           className={
                             usedIngredients.includes(recipeData[ingredient])
                               ? 'checked-ingredient'
@@ -105,16 +105,16 @@ export default function RecipeData({
                           {recipeData[ingredient.replace('strIngredient', 'strMeasure')]}
                           <input
                             type="checkbox"
-                            id={`${index}-ingredient-checkbox`}
-                            onChange={() => handleUsedIngredients(recipeData[ingredient])}
-                            checked={usedIngredients.includes(recipeData[ingredient])}
+                            id={ `${index}-ingredient-checkbox` }
+                            onChange={ () => handleUsedIngredients(recipeData[ingredient]) }
+                            checked={ usedIngredients.includes(recipeData[ingredient]) }
                           />
                         </label>
                       </div>
                     );
                   }
                   return (
-                    <li data-testid={`${index}-ingredient-name-and-measure`} key={`${index}-li`}>
+                    <li data-testid={ `${index}-ingredient-name-and-measure` } key={ `${index}-li` }>
                       {recipeData[ingredient]}
                       {' - '}
                       {recipeData[ingredient.replace('strIngredient', 'strMeasure')]}
@@ -132,15 +132,15 @@ export default function RecipeData({
               <div className="video-container">
                 <h3 className="subtitle">Tutorial</h3>
                 <iframe
-                  title={recipeData.strMeal}
-                  src={recipeData.strYoutube && recipeData.strYoutube.replace('watch?v=', 'embed/')}
+                  title={ recipeData.strMeal }
+                  src={ recipeData.strYoutube && recipeData.strYoutube.replace('watch?v=', 'embed/') }
                   data-testid="video"
                   className="video"
                 />
               </div>
             )}
             {type === 'progress' && (
-              <div className='finish-recipe-btn-container'>
+              <div className="finish-recipe-btn-container">
                 <button
                   data-testid="finish-recipe-btn"
                   disabled={
@@ -148,7 +148,7 @@ export default function RecipeData({
                       (key) => key.includes('strIngredient') && recipeData[key],
                     ).length !== usedIngredients.length
                   }
-                  onClick={() => finishRecipe(recipeData)}
+                  onClick={ () => finishRecipe(recipeData) }
                   className="finish-recipe-btn"
                 >
                   Finish Recipe
@@ -157,25 +157,27 @@ export default function RecipeData({
             )}
           </div>
         ))}
-        {type === 'details' ? (
-          <>
-            <h3 className="suggestion-subtitle">
-              Suggested {pathname.includes('meals') ? 'drinks' : 'meals'}
-            </h3>
-            <Carousel suggestions={suggestions} CAROUSEL_LIMIT={CAROUSEL_LIMIT} />
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-recipe-btn"
-              onClick={() => {
-                startRecipe();
-                history.push(`${pathname}/in-progress`);
-              }}
-            >
-              {inProgress ? 'Continue Recipe' : 'Start Recipe'}
-            </button>
-          </>
-        ) : ''}
+      {type === 'details' ? (
+        <>
+          <h3 className="suggestion-subtitle">
+            Suggested
+            {' '}
+            {pathname.includes('meals') ? 'drinks' : 'meals'}
+          </h3>
+          <Carousel suggestions={ suggestions } CAROUSEL_LIMIT={ CAROUSEL_LIMIT } />
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            onClick={ () => {
+              startRecipe();
+              history.push(`${pathname}/in-progress`);
+            } }
+          >
+            {inProgress ? 'Continue Recipe' : 'Start Recipe'}
+          </button>
+        </>
+      ) : ''}
     </div>
   );
 }

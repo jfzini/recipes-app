@@ -20,7 +20,7 @@ export default function SearchBar() {
   const checkFilters = () => {
     const { input, filter } = filters;
     if (filter === 'firstLetter' && input.length > 1) {
-      return true; 
+      return true;
     }
     if (input && filter) {
       return false;
@@ -40,59 +40,59 @@ export default function SearchBar() {
   }, [recipes]);
 
   return (
-    <div className='searchbar-container'>
+    <div className="searchbar-container">
       <input
         data-testid="search-input"
         type="text"
         name="searchInput"
         value={ searchQuery }
-        className='search-input'
+        className="search-input"
         onChange={ ({ target }) => {
-          setSearchQuery(target.value)
+          setSearchQuery(target.value);
           setFilters({ ...filters, input: target.value });
         } }
       />
-      <div className='radio-container'>
-        <label htmlFor="ingredient-radio" className='input-label'>
-        <input
-          type="radio"
-          name="search"
-          onChange={ () => {
-            setSearchMethod('ingredient')
-            setFilters({ ...filters, filter: 'ingredient' });
-          } }
-          id="ingredient-radio"
-          data-testid="ingredient-search-radio"
-          className='radio-input'
-        />
+      <div className="radio-container">
+        <label htmlFor="ingredient-radio" className="input-label">
+          <input
+            type="radio"
+            name="search"
+            onChange={ () => {
+              setSearchMethod('ingredient');
+              setFilters({ ...filters, filter: 'ingredient' });
+            } }
+            id="ingredient-radio"
+            data-testid="ingredient-search-radio"
+            className="radio-input"
+          />
           Ingredient
         </label>
-        <label htmlFor="name-radio" className='input-label'>
-        <input
-          type="radio"
-          name="search"
-          onChange={ () => {
-            setSearchMethod('name')
-            setFilters({ ...filters, filter: 'name' });
-          } }
-          id="name-radio"
-          data-testid="name-search-radio"
-          className='radio-input'
-        />
+        <label htmlFor="name-radio" className="input-label">
+          <input
+            type="radio"
+            name="search"
+            onChange={ () => {
+              setSearchMethod('name');
+              setFilters({ ...filters, filter: 'name' });
+            } }
+            id="name-radio"
+            data-testid="name-search-radio"
+            className="radio-input"
+          />
           Name
         </label>
-        <label htmlFor="letter-radio" className='input-label'>
-        <input
-          type="radio"
-          name="search"
-          onChange={ () => {
-            setSearchMethod('firstLetter')
-            setFilters({ ...filters, filter: 'firstLetter' });
-          } }
-          id="letter-radio"
-          data-testid="first-letter-search-radio"
-          className='radio-input'
-        />
+        <label htmlFor="letter-radio" className="input-label">
+          <input
+            type="radio"
+            name="search"
+            onChange={ () => {
+              setSearchMethod('firstLetter');
+              setFilters({ ...filters, filter: 'firstLetter' });
+            } }
+            id="letter-radio"
+            data-testid="first-letter-search-radio"
+            className="radio-input"
+          />
           First Letter
         </label>
       </div>
@@ -100,7 +100,7 @@ export default function SearchBar() {
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => handleSearch(history.location.pathname) }
-        className='search-btn'
+        className="search-btn"
         disabled={ checkFilters() }
       >
         Search

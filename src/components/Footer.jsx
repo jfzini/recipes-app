@@ -11,26 +11,26 @@ export default function Footer() {
     <div data-testid="footer" className="footer-container">
       <button
         type="button"
-        className='footer-btn'
+        className="footer-btn"
         onClick={ () => history.push('/drinks') }
       >
         <img
           src={ drinkIcon }
           alt="drink page"
           data-testid="drinks-bottom-btn"
-          className='footer-img'
+          className="footer-img"
         />
       </button>
       <button
         type="button"
         onClick={ () => history.push('/meals') }
-        className='footer-btn'
+        className="footer-btn"
       >
         <img
           src={ mealIcon }
           alt="meal page"
           data-testid="meals-bottom-btn"
-          className='footer-img'
+          className="footer-img"
         />
       </button>
     </div>
