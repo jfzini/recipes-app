@@ -128,7 +128,7 @@ export default function RecipeDetails() {
     fetchSuggestions();
     checkFavorite();
     checkInProgress();
-  }, []);
+  }, [pathname]);
 
   return (
     <div>

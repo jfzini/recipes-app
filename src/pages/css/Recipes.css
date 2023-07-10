@@ -1,0 +1,97 @@
+.recipe-page-container {
+  align-items: center;
+  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.95);
+  background-image: url('../../images/seamless-pattern.webp');
+  background-size: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding-bottom: 60px;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-block: 10px;
+  width: 100%;
+}
+
+.filter-button {
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 3px gray;
+  cursor: pointer;
+  font-family: Montserrat , sans-serif;
+  margin: 5px;
+  padding: 5px;
+  transition: background 0.3s ease-in-out , box-shadow 0.2s linear;
+  width: 90px;
+}
+
+.filter-button:hover {
+  box-shadow: 0 0 3px var(--orangered);
+}
+
+.active-filter, .inactive-filter {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.active-filter {
+  background-color: var(--orangered);
+  color: white;
+  font-weight: 700;
+}
+
+/* .inactive-filter {
+  background-color: rgb(231, 231, 231);
+  box-shadow: none;
+  color: white;
+} */
+
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: min(80% dvw, 1200px);
+}
+
+.recipe-card {
+  animation: appear 0.7s ease-in-out;
+  cursor: pointer;
+  margin: 20px 10px;
+  position: relative;
+}
+
+.recipe-image-container {
+  background-color: transparent;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px gray;
+  height: min(40dvw, 300px);
+  overflow: hidden;
+  width: min(40dvw, 300px);
+}
+
+.recipe-image {
+  transition: all 0.3s ease-in-out;
+  width: min(40dvw, 300px);
+}
+
+.recipe-card:hover img {
+  transform: scale(1.07);
+}
+
+.recipe-name {
+  bottom: 20px;
+  color: white;
+  font-family: Remains Stepping , sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  left: 20px;
+  position: absolute;
+  text-shadow: 0 0 5px black , 0 0 5px black;
+}

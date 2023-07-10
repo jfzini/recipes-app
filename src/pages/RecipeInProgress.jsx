@@ -134,7 +134,7 @@ export default function RecipeInProgress() {
       alcoholicOrNot: doneRecipe.strAlcoholic || '',
       name: doneRecipe.strMeal || doneRecipe.strDrink,
       image: doneRecipe.strMealThumb || doneRecipe.strDrinkThumb,
-      doneDate: new Date(),
+      doneDate: new Date().toLocaleDateString('pt-BR'),
       tags: doneRecipe.strTags ? doneRecipe.strTags.split(',') : [],
     };
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));

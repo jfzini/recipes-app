@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import searchIcon from '../images/searchIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.png';
+import profileIcon from '../images/profileIcon.png';
+import './css/Header.css';
 
 export default function Header() {
   const history = useHistory();
@@ -39,35 +40,45 @@ export default function Header() {
   }, [pathname]);
 
   return (
-    <div>
-      <h1 data-testid="page-title">{headerData.title}</h1>
-
-      {headerData.renderSearchIcon
-        && (
-          <button
-            onClick={ () => setHeaderData(
-              {
+    <div className="header-container">
+      <div className="icons-container">
+        <button onClick={ () => history.push('/profile') }>
+          <img
+            src={ profileIcon }
+            alt="profile-icon"
+            data-testid="profile-top-btn"
+            className="header-img"
+          />
+        </button>
+        <h1
+          data-testid="page-title"
+          className={ headerData.title === 'Done Recipes'
+            || headerData.title === 'Favorite Recipes'
+            ? 'header-title done-recipes-title'
+            : 'header-title' }
+        >
+          {headerData.title}
+        </h1>
+        <div>
+          {headerData.renderSearchIcon && (
+            <button
+              type="button"
+              className={ headerData.showSearchBar ? 'search-icon' : '' }
+              onClick={ () => setHeaderData({
                 ...headerData,
                 showSearchBar: !headerData.showSearchBar,
-              },
-            ) }
-          >
-            <img
-              src={ searchIcon }
-              alt="search-icon"
-              data-testid="search-top-btn"
-            />
-          </button>
-        )}
-      <button
-        onClick={ () => history.push('/profile') }
-      >
-        <img
-          src={ profileIcon }
-          alt="profile-icon"
-          data-testid="profile-top-btn"
-        />
-      </button>
+              }) }
+            >
+              <img
+                src={ searchIcon }
+                alt="search-icon"
+                data-testid="search-top-btn"
+                className="header-img"
+              />
+            </button>
+          )}
+        </div>
+      </div>
       {headerData.showSearchBar && <SearchBar />}
     </div>
   );

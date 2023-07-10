@@ -1,0 +1,136 @@
+.header-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.searchbar-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: Montserrat , sans-serif;
+  width: 90vw;
+}
+
+.searchbar-container > input, .searchbar-container > button {
+  font-family: Montserrat , sans-serif;
+}
+
+.search-input {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 3px gray;
+  font-size: 1rem;
+  line-height: 1.7rem;
+  padding-inline: 10px;
+  width: 100%;
+}
+
+.icons-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 90dvw;
+}
+
+.icons-container button {
+  background-color: white;
+  border: 2px solid var(--lightorangered);
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 10px;
+  padding: 10px;
+  transition: all 0.2s linear;
+}
+
+.icons-container button:hover {
+  box-shadow: 0 0 4px var(--orangered);
+}
+
+.header-img {
+  display: block;
+  width: 30px;
+}
+
+.radio-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin-block: 10px;
+  width: 100%;
+}
+
+.radio-input {
+  margin-right: 5px;
+}
+
+.input-label {
+  cursor: pointer;
+}
+
+input[ type = 'radio' ]:after {
+  background-color: rgb(231, 231, 231);
+  border: 2px solid white;
+  border-radius: 15px;
+  content: '';
+  display: inline-block;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
+}
+
+input[ type = 'radio' ]:checked:after {
+  background-color: var(--orangered);
+  border: 2px solid white;
+  border-radius: 15px;
+  content: '';
+  display: inline-block;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
+}
+
+.search-btn {
+  background-color: var(--orangered);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  color: white;
+  cursor: pointer;
+  font-family: Montserrat , sans-serif;
+  font-weight: 700;
+  margin: 5px;
+  padding: 5px;
+  transition: background 0.3s ease-in-out , box-shadow 0.2s linear;
+  width: 90px;
+}
+
+.search-btn:disabled {
+  background-color: rgb(231, 231, 231);
+  box-shadow: none;
+  color: gray;
+  cursor: default;
+}
+
+.search-icon {
+  border: 2px solid var(--orangered) ! important;
+  box-shadow: 0 0 5px var(--orangered) , 0 0 5px var(--orangered);
+}
+
+.header-title {
+  font-family: Remains Stepping , sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 5rem;
+}
+
+.done-recipes-title {
+  font-size: 2.3rem;
+}
