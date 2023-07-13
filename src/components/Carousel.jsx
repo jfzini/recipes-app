@@ -29,6 +29,7 @@ export default function Carousel({ suggestions, CAROUSEL_LIMIT }) {
                   onClick={ () => history.push(`/${suggestion.idMeal
                     ? 'meals'
                     : 'drinks'}/${suggestion.idMeal || suggestion.idDrink}`) }
+                    className="carousel-card"
                 >
                   <img
                     src={ suggestion.strMealThumb || suggestion.strDrinkThumb }

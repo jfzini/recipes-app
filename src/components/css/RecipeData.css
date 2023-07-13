@@ -143,6 +143,11 @@ li::marker {
   padding: 20px;
 }
 
+.carousel-card {
+  background-color: transparent;
+  border: none;
+}
+
 .carousel-title {
   bottom: 20%;
   color: white;
